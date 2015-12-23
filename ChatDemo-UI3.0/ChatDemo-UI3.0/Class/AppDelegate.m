@@ -49,13 +49,13 @@
 #warning SDK注册 APNS文件的名字, 需要与后台上传证书时的名字一一对应
     NSString *apnsCertName = nil;
 #if DEBUG
-    apnsCertName = @"chatdemoui_dev";
+    apnsCertName = @"chat_dev";
 #else
-    apnsCertName = @"chatdemoui";
+    apnsCertName = @"chat_product";
 #endif
     [self easemobApplication:application
 didFinishLaunchingWithOptions:launchOptions
-                      appkey:@"easemob-demo#chatdemoui"
+                      appkey:@"yozaiitech#yozaii"
                 apnsCertName:apnsCertName
                  otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
 

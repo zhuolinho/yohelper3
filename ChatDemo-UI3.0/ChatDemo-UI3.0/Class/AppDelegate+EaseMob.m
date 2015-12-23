@@ -30,7 +30,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[EaseSDKHelper shareHelper] easemobApplication:application
                     didFinishLaunchingWithOptions:launchOptions
-                                           appkey:@"easemob-demo#chatdemoui"
+                                           appkey:@"yozaiitech#yozaii"
                                      apnsCertName:apnsCertName
                                       otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
     

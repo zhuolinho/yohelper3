@@ -42,7 +42,8 @@
     [[EaseBaseMessageCell appearance] setRecvMessageVoiceAnimationImages:@[[UIImage imageNamed:@"chat_receiver_audio_playing_full"],[UIImage imageNamed:@"chat_receiver_audio_playing000"], [UIImage imageNamed:@"chat_receiver_audio_playing001"], [UIImage imageNamed:@"chat_receiver_audio_playing002"], [UIImage imageNamed:@"chat_receiver_audio_playing003"]]];
     
     [[EaseBaseMessageCell appearance] setAvatarSize:40.f];
-    [[EaseBaseMessageCell appearance] setAvatarCornerRadius:20.f];
+//    [[EaseBaseMessageCell appearance] setAvatarCornerRadius:20.f];
+    [EaseBaseMessageCell appearance].messageNameIsHidden = YES;
     
     [[EaseChatBarMoreView appearance] setMoreViewBackgroundColor:[UIColor colorWithRed:240 / 255.0 green:242 / 255.0 blue:247 / 255.0 alpha:1.0]];
     
