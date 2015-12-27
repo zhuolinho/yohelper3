@@ -18,6 +18,7 @@
 #import "AppDelegate+UMeng.h"
 #import "AppDelegate+Parse.h"
 
+#import "WXApi.h"
 
 @interface AppDelegate ()
 
@@ -28,6 +29,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [WXApi registerApp:@"wxf31f0d65d051d083"];
     _connectionState = eEMConnectionConnected;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

@@ -58,7 +58,7 @@
     
     [_useIpSwitch setOn:[[EaseMob sharedInstance].chatManager isUseIp] animated:YES];
     
-    self.title = NSLocalizedString(@"AppName", @"EaseMobDemo");
+    self.title = NSLocalizedString(@"AppName", @"YoHelper");
 }
 
 - (void)viewDidAppear:(BOOL)animated

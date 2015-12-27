@@ -62,7 +62,7 @@
 "hasRead" = "Read";
 
 //app
-"AppName" = "EaseMobDemo";
+"AppName" = "YoHelper";
 
 //error des
 "error.connectServerFail" = "Connect to the server failed!";
@@ -348,3 +348,8 @@
 "NSDateCategory.text12" = "aa hh:mm";
 "NSDateCategory.text13" = "M-d HH:mm";
 "NSDateCategory.text14" = "today %@";
+
+"yohelper.settitle" = "分享到朋友圈可免费设置首席语伴，每月一次";
+"yohelper.alipay" = "支付宝支付";
+"yohelper.wxpay" = "微信支付";
+"yohelper.wxfrd" = "朋友圈";

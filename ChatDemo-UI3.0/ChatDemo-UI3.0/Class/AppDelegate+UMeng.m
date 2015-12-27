@@ -18,8 +18,8 @@
 -(void)setupUMeng{
     //友盟
     NSString *bundleID = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
-    if ([bundleID isEqualToString:@"com.easemob.enterprise.demo.ui"]) {
-        [MobClick startWithAppkey:@"5389bb7f56240ba94208ac97"
+    if ([bundleID isEqualToString:@"com.yozaii.yohelper2"]) {
+        [MobClick startWithAppkey:@"55828dd967e58e176f0035fa"
                      reportPolicy:BATCH
                         channelId:Nil];
 #if DEBUG

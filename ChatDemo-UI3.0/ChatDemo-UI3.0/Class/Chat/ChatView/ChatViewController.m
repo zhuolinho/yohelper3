@@ -15,7 +15,7 @@
 #import "UserProfileManager.h"
 #import "ContactListSelectViewController.h"
 
-@interface ChatViewController ()<UIAlertViewDelegate, EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource>
+@interface ChatViewController ()<UIAlertViewDelegate, EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource, UIActionSheetDelegate>
 {
     UIMenuItem *_copyMenuItem;
     UIMenuItem *_deleteMenuItem;
@@ -89,10 +89,10 @@
     
     //单聊
     if (self.conversation.conversationType == eConversationTypeChat) {
-        UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-        [clearButton setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
-        [clearButton addTarget:self action:@selector(deleteAllMessages:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:clearButton];
+//        UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+//        [clearButton setImage:[UIImage imageNamed:@"分享"] forState:UIControlStateNormal];
+//        [clearButton addTarget:self action:@selector(shareButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"分享"] style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonClick)];
     }
     else{//群聊
         UIButton *detailButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
@@ -436,6 +436,30 @@
     }
     [self.menuController setTargetRect:showInView.frame inView:showInView.superview];
     [self.menuController setMenuVisible:YES animated:YES];
+}
+
+- (void)shareButtonClick {
+//    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:NSLocalizedString(@"分享到朋友圈可免费设置首席语伴，每月一次", "分享到朋友圈可免费设置首席语伴，每月一次") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"支付宝支付", @"支付宝支付"), NSLocalizedString(@"微信支付", @"微信支付"), NSLocalizedString(@"朋友圈", @"朋友圈"), nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc]init];
+    sheet.title = NSLocalizedString(@"yohelper.settitle", "分享到朋友圈可免费设置首席语伴，每月一次");
+    sheet.delegate = self;
+    [sheet addButtonWithTitle:NSLocalizedString(@"yohelper.alipay", @"支付宝支付")];
+    [sheet addButtonWithTitle:NSLocalizedString(@"yohelper.wxpay", @"微信支付")];
+    if (0) {
+        [sheet addButtonWithTitle:NSLocalizedString(@"cancel", @"Cancel")];
+        sheet.cancelButtonIndex = 2;
+    } else {
+        [sheet addButtonWithTitle:NSLocalizedString(@"yohelper.wxfrd", @"朋友圈")];
+        [sheet addButtonWithTitle:NSLocalizedString(@"cancel", @"Cancel")];
+        sheet.cancelButtonIndex = 3;
+    }
+    [sheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 2 && buttonIndex != actionSheet.cancelButtonIndex) {
+        
+    }
 }
 
 @end

@@ -62,7 +62,7 @@
 "hasRead" = "已读";
 
 //app
-"AppName" = "环信Demo";
+"AppName" = "外语帮手";
 
 //error des
 "error.connectServerFail" = "连接服务器失败!";
@@ -347,3 +347,8 @@
 "NSDateCategory.text12" = "晚上hh:mm";
 "NSDateCategory.text13" = "昨天HH:mm";
 "NSDateCategory.text14" = "今天 %@";
+
+"yohelper.settitle" = "分享到朋友圈可免费设置首席语伴，每月一次";
+"yohelper.alipay" = "支付宝支付";
+"yohelper.wxpay" = "微信支付";
+"yohelper.wxfrd" = "朋友圈";
