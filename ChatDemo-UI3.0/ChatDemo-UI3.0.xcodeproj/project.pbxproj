@@ -24,13 +24,14 @@
 		062DDAD01C2FBF0E00908998 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 062DDAC21C2FBF0E00908998 /* libcrypto.a */; };
 		062DDAD11C2FBF0E00908998 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 062DDAC31C2FBF0E00908998 /* libssl.a */; };
 		062DDAD31C2FCF1E00908998 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 062DDAD21C2FCF1E00908998 /* CoreMotion.framework */; };
+		068465391C31AE5A00062B0E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 068465381C31AE5A00062B0E /* MapKit.framework */; };
+		0684653D1C31AFE200062B0E /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684653C1C31AFE200062B0E /* API.m */; };
 		283403091A9EBB8200B7DE9B /* GroupSubjectChangingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283403081A9EBB8200B7DE9B /* GroupSubjectChangingViewController.m */; };
 		28BB9D1C1B2AFB2900AB7BA2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 28BB9D1B1B2AFB2900AB7BA2 /* Settings.bundle */; };
 		28BFD6361B01D40500D0ADEC /* ChatroomDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFD6311B01D40500D0ADEC /* ChatroomDetailViewController.m */; };
 		28BFD6371B01D40500D0ADEC /* ChatroomListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFD6331B01D40500D0ADEC /* ChatroomListViewController.m */; };
 		28BFD6381B01D40500D0ADEC /* MyChatroomListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFD6351B01D40500D0ADEC /* MyChatroomListViewController.m */; };
 		3C06AAFF194050A00076FF0B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C06AAFE194050A00076FF0B /* CoreLocation.framework */; };
-		3C06AB0319405D330076FF0B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C06AB0219405D330076FF0B /* MapKit.framework */; };
 		3C117122197D243B00E2DBEC /* PushNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C117121197D243B00E2DBEC /* PushNotificationViewController.m */; };
 		3C13D94B1A12095D00903622 /* GroupBansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13D94A1A12095D00903622 /* GroupBansViewController.m */; };
 		3C13D94E1A120BA200903622 /* ContactView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13D94D1A120BA200903622 /* ContactView.m */; };
@@ -426,6 +427,9 @@
 		062DDAC21C2FBF0E00908998 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		062DDAC31C2FBF0E00908998 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		062DDAD21C2FCF1E00908998 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		068465381C31AE5A00062B0E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		0684653B1C31AFE200062B0E /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
+		0684653C1C31AFE200062B0E /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
 		283403071A9EBB8200B7DE9B /* GroupSubjectChangingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSubjectChangingViewController.h; sourceTree = "<group>"; };
 		283403081A9EBB8200B7DE9B /* GroupSubjectChangingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupSubjectChangingViewController.m; sourceTree = "<group>"; };
 		28BB9D1B1B2AFB2900AB7BA2 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -436,7 +440,6 @@
 		28BFD6341B01D40500D0ADEC /* MyChatroomListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyChatroomListViewController.h; sourceTree = "<group>"; };
 		28BFD6351B01D40500D0ADEC /* MyChatroomListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyChatroomListViewController.m; sourceTree = "<group>"; };
 		3C06AAFE194050A00076FF0B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		3C06AB0219405D330076FF0B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3C0CE53A193895E200219149 /* macros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = macros.h; sourceTree = "<group>"; };
 		3C117120197D243B00E2DBEC /* PushNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotificationViewController.h; sourceTree = "<group>"; };
 		3C117121197D243B00E2DBEC /* PushNotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNotificationViewController.m; sourceTree = "<group>"; };
@@ -1052,10 +1055,10 @@
 				EB1975B21ADE0C77002E7E27 /* libc++.dylib in Frameworks */,
 				EBF9556C1ADD0F0C0087E035 /* libstdc++.6.0.9.dylib in Frameworks */,
 				3CBB931C1A14B227007FED9E /* libsqlite3.dylib in Frameworks */,
+				068465391C31AE5A00062B0E /* MapKit.framework in Frameworks */,
 				062DDAD01C2FBF0E00908998 /* libcrypto.a in Frameworks */,
 				3CE6293319A1B13700829632 /* CoreText.framework in Frameworks */,
 				3C1CEF7F196EA37600DBA56B /* ImageIO.framework in Frameworks */,
-				3C06AB0319405D330076FF0B /* MapKit.framework in Frameworks */,
 				3C06AAFF194050A00076FF0B /* CoreLocation.framework in Frameworks */,
 				902DEC551931D934006CA75E /* libresolv.dylib in Frameworks */,
 				3C3527451931D37900385240 /* SystemConfiguration.framework in Frameworks */,
@@ -1228,6 +1231,15 @@
 				062DDAC31C2FBF0E00908998 /* libssl.a */,
 			);
 			path = AlipaySDK;
+			sourceTree = "<group>";
+		};
+		0684653A1C31AFE200062B0E /* YoHelper */ = {
+			isa = PBXGroup;
+			children = (
+				0684653B1C31AFE200062B0E /* API.h */,
+				0684653C1C31AFE200062B0E /* API.m */,
+			);
+			path = YoHelper;
 			sourceTree = "<group>";
 		};
 		28BFD62F1B01D40500D0ADEC /* Chatroom */ = {
@@ -1407,6 +1419,7 @@
 		9091101B192EEA70008A48AA = {
 			isa = PBXGroup;
 			children = (
+				0684653A1C31AFE200062B0E /* YoHelper */,
 				062DDA5A1C2FBF0E00908998 /* IntegratedAlipay */,
 				90C641DA1B09CAC400E1E6C9 /* EaseMobSDK */,
 				9091102D192EEA70008A48AA /* ChatDemo-UI3.0 */,
@@ -1427,6 +1440,7 @@
 		90911026192EEA70008A48AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				068465381C31AE5A00062B0E /* MapKit.framework */,
 				062DDAD21C2FCF1E00908998 /* CoreMotion.framework */,
 				D2A42AA91BDA4CEB0089902B /* libEaseUI.a */,
 				D29A6BB41B7209C1002324BB /* Accounts.framework */,
@@ -1440,7 +1454,6 @@
 				3CBB931B1A14B227007FED9E /* libsqlite3.dylib */,
 				3CE6293219A1B13700829632 /* CoreText.framework */,
 				3C1CEF7E196EA37600DBA56B /* ImageIO.framework */,
-				3C06AB0219405D330076FF0B /* MapKit.framework */,
 				3C06AAFE194050A00076FF0B /* CoreLocation.framework */,
 				902DEC541931D934006CA75E /* libresolv.dylib */,
 				3C3527441931D37900385240 /* SystemConfiguration.framework */,
@@ -2563,6 +2576,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -2835,6 +2851,7 @@
 				3C117122197D243B00E2DBEC /* PushNotificationViewController.m in Sources */,
 				D2CB225C1B60CB08001BC741 /* UserProfileViewController.m in Sources */,
 				90985E481A8A08D400976DD6 /* InvitationManager.m in Sources */,
+				0684653D1C31AFE200062B0E /* API.m in Sources */,
 				D2B61E361BC7C76B007CB53E /* ContactListViewController.m in Sources */,
 				D2B61E2E1BC7A9B3007CB53E /* EMGifImage.m in Sources */,
 				90517D6A1A5C3DB0008F1315 /* AppDelegate+UMeng.m in Sources */,

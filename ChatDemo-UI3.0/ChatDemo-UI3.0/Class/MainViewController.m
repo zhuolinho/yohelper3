@@ -20,13 +20,15 @@
 #import "UserProfileManager.h"
 #import "ConversationListController.h"
 #import "ContactListViewController.h"
+
+#import "API.h"
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 static NSString *kMessageType = @"MessageType";
 static NSString *kConversationChatter = @"ConversationChatter";
 static NSString *kGroupName = @"GroupName";
 
-@interface MainViewController () <UIAlertViewDelegate, IChatManagerDelegate, EMCallManagerDelegate>
+@interface MainViewController () <UIAlertViewDelegate, IChatManagerDelegate, EMCallManagerDelegate, APIProtocol>
 {
     ConversationListController *_chatListVC;
     ContactListViewController *_contactsVC;
@@ -34,6 +36,8 @@ static NSString *kGroupName = @"GroupName";
 //    __weak CallViewController *_callController;
     
     UIBarButtonItem *_addFriendItem;
+    
+    API *myAPI;
 }
 
 @property (strong, nonatomic) NSDate *lastPlaySoundDate;
@@ -78,6 +82,13 @@ static NSString *kGroupName = @"GroupName";
     
     [self setupUnreadMessageCount];
     [self setupUntreatedApplyCount];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    myAPI = [[API alloc]init];
+    myAPI.delegate = self;
+    [myAPI getMyInfo];
 }
 
 - (void)didReceiveMemoryWarning
@@ -896,6 +907,16 @@ static NSString *kGroupName = @"GroupName";
         [self.navigationController popToViewController:self animated:NO];
         [self setSelectedViewController:_chatListVC];
     }
+}
+
+- (void)didReceiveAPIErrorOf:(API *)api data:(long)errorNo {
+    NSLog(@"%ld", errorNo);
+}
+
+- (void)didReceiveAPIResponseOf:(API *)api data:(NSDictionary *)data {
+    [API setInfo:data[@"result"]];
+    NSString *avatar = [NSString stringWithFormat:@"%@%@", HOST, [API getInfo][@"avatar"]];
+    [API setAvatarByKey:[API getInfo][@"username"] name:avatar];
 }
 
 @end

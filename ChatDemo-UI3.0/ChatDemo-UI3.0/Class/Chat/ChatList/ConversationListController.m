@@ -16,6 +16,8 @@
 #import "UserProfileManager.h"
 #import "RealtimeSearchUtil.h"
 
+#import "API.h"
+
 @implementation EMConversation (search)
 
 //根据用户昵称,环信机器人名称,群名称进行搜索
@@ -214,6 +216,13 @@
                 model.avatarURLPath = profileEntity.imageUrl;
             }
         }
+        if ([API getNameByKey:conversation.chatter]) {
+            model.title = [API getNameByKey:conversation.chatter];
+        }
+        if ([API getAvatarByKey:conversation.chatter]) {
+            model.avatarURLPath = [API getAvatarByKey:conversation.chatter];
+        }
+        [self post:@"getAvatarAndNicknameFromUid.action" username:conversation.chatter];
     } else if (model.conversation.conversationType == eConversationTypeGroupChat) {
         NSString *imageName = @"groupPublicHeader";
         if (![conversation.ext objectForKey:@"groupSubject"] || ![conversation.ext objectForKey:@"isPublic"])
@@ -389,5 +398,44 @@
     NSLog(NSLocalizedString(@"message.endReceiveOffine", @"End to receive offline messages"));
 }
 
+- (void)post:(NSString *)action username:(NSString *)username {
+    NSDictionary *dic = [[NSDictionary alloc]initWithObjectsAndKeys:username, @"userstr", nil];
+    NSString *str = [NSString stringWithFormat:@"%@/yozaii2/api/%@", HOST, action];
+    NSURL *url = [NSURL URLWithString:str];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod = @"POST";
+    NSMutableArray *parametersArray = [[NSMutableArray alloc]init];
+    for (NSString *key in [dic allKeys]) {
+        id value = [dic objectForKey:key];
+        if ([value isKindOfClass:[NSString class]]) {
+            [parametersArray addObject:[NSString stringWithFormat:@"%@=%@",key,value]];
+        }
+    }
+    NSString *dicString = [parametersArray componentsJoinedByString:@"&"];
+    NSData *data = [dicString dataUsingEncoding:NSUTF8StringEncoding];
+    request.HTTPBody = data;
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if (connectionError == nil) {
+            NSError *err = nil;
+            id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&err];
+            if(jsonObject != nil && err == nil){
+                if([jsonObject isKindOfClass:[NSDictionary class]]){
+                    NSDictionary *deserializedDictionary = (NSDictionary *)jsonObject;
+                    long errNo = [deserializedDictionary[@"errno"] integerValue];
+                    if (errNo == 0) {
+                        NSDictionary *res = deserializedDictionary[@"result"];
+                        NSString *nickname = res[@"nickname"];
+                        [API setNameByKey:username name:[nickname componentsSeparatedByString:@","][0]];
+                        NSString *avatar = [NSString stringWithFormat:@"%@%@", HOST, [res[@"avatar"] componentsSeparatedByString:@","][0]];
+                        [API setAvatarByKey:username name:avatar];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.tableView reloadData];
+                        });
+                    }
+                }
+            }
+        }
+    }];
+}
 
 @end

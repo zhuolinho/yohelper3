@@ -352,3 +352,4 @@
 "yohelper.alipay" = "支付宝支付";
 "yohelper.wxpay" = "微信支付";
 "yohelper.wxfrd" = "朋友圈";
+"AuthenticationFailure" = "用户名或密码错误.";

@@ -14,6 +14,7 @@
 #import "UserProfileViewController.h"
 #import "UserProfileManager.h"
 #import "ContactListSelectViewController.h"
+#import "API.h"
 
 @interface ChatViewController ()<UIAlertViewDelegate, EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource, UIActionSheetDelegate>
 {
@@ -175,7 +176,7 @@
    didSelectAvatarMessageModel:(id<IMessageModel>)messageModel
 {
     UserProfileViewController *userprofile = [[UserProfileViewController alloc] initWithUsername:messageModel.nickname];
-    [self.navigationController pushViewController:userprofile animated:YES];
+//    [self.navigationController pushViewController:userprofile animated:YES];
 }
 
 
@@ -247,6 +248,9 @@
         model.avatarURLPath = profileEntity.imageUrl;
     }
     model.failImageName = @"imageDownloadFail";
+    if ([API getAvatarByKey:model.nickname]) {
+        model.avatarURLPath = [API getAvatarByKey:model.nickname];
+    }
     return model;
 }
 

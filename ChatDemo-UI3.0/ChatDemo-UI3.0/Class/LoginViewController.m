@@ -13,7 +13,9 @@
 #import "LoginViewController.h"
 #import "EMError.h"
 
-@interface LoginViewController ()<IChatManagerDelegate,UITextFieldDelegate>
+#import "API.h"
+
+@interface LoginViewController ()<IChatManagerDelegate,UITextFieldDelegate,APIProtocol>
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -210,6 +212,9 @@
             
             return;
         }
+        API *myAPI = [[API alloc]init];
+        myAPI.delegate = self;
+        [myAPI login:_usernameTextField.text password:_passwordTextField.text];
         /*
 #if !TARGET_IPHONE_SIMULATOR
         //弹出提示
@@ -222,7 +227,7 @@
         [self loginWithUsername:_usernameTextField.text password:_passwordTextField.text];
 #endif
          */
-        [self loginWithUsername:_usernameTextField.text password:_passwordTextField.text];
+//        [self loginWithUsername:_usernameTextField.text password:_passwordTextField.text];
     }
 }
 
@@ -291,6 +296,24 @@
         return username;
     }
     return nil;
+}
+
+- (void)didReceiveAPIErrorOf:(API *)api data:(long)errorNo {
+    TTAlertNoTitle(NSLocalizedString(@"error.connectServerFail", @"Connect to the server failed!"));
+}
+
+- (void)didReceiveAPIResponseOf:(API *)api data:(NSDictionary *)data {
+    NSDictionary *res = data[@"result"];
+    if (![res[@"token"] isEqual: @"wrong"]) {
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        [ud setObject:res[@"token"] forKey:@"yo_token"];
+        [ud synchronize];
+        NSLog(@"%@",res[@"token"]);
+        [self loginWithUsername:res[@"username"] password:@"123456"];
+    }
+    else {
+        TTAlertNoTitle(NSLocalizedString(@"AuthenticationFailure", @"User name or password is incorrect."));
+    }
 }
 
 @end

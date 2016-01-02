@@ -236,7 +236,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
         }
     }
     
-    [alertView show];
+//    [alertView show];
 }
 
 // 自动登录结束回调
@@ -256,7 +256,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
         alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"prompt", @"Prompt") message:NSLocalizedString(@"login.endAutoLogin", @"End automatic login...") delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
     }
     
-    [alertView show];
+//    [alertView show];
 }
 
 #pragma make - login easemob
