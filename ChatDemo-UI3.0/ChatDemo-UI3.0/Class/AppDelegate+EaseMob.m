@@ -104,13 +104,16 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
         //加载申请通知的数据
         [[ApplyViewController shareController] loadDataSourceFromLocalDB];
         if (self.mainController == nil) {
-            self.mainController = [[MainViewController alloc] init];
+            UIStoryboard *mainSB = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            self.mainController = [mainSB instantiateInitialViewController];
             navigationController = [[UINavigationController alloc] initWithRootViewController:self.mainController];
         }else{
             navigationController  = self.mainController.navigationController;
         }
+        [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
         // 环信UIdemo中有用到Parse，您的项目中不需要添加，可忽略此处
         [self initParse];
+        self.window.rootViewController = self.mainController;
     }
     else{//登陆失败加载登陆页面控制器
         self.mainController = nil;
@@ -118,6 +121,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
         LoginViewController *loginController = [[LoginViewController alloc] init];
         navigationController = [[UINavigationController alloc] initWithRootViewController:loginController];
         [self clearParse];
+        self.window.rootViewController = navigationController;
     }
     
     //设置7.0以下的导航栏
@@ -128,7 +132,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
         [navigationController.navigationBar.layer setMasksToBounds:YES];
     }
     
-    self.window.rootViewController = navigationController;
+    
 }
 
 #pragma mark - IChatManagerDelegate

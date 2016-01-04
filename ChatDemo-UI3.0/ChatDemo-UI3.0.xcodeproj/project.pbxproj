@@ -24,6 +24,10 @@
 		062DDAD01C2FBF0E00908998 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 062DDAC21C2FBF0E00908998 /* libcrypto.a */; };
 		062DDAD11C2FBF0E00908998 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 062DDAC31C2FBF0E00908998 /* libssl.a */; };
 		062DDAD31C2FCF1E00908998 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 062DDAD21C2FCF1E00908998 /* CoreMotion.framework */; };
+		064F140B1C3949E500CB8E61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 064F140D1C3949E500CB8E61 /* Main.storyboard */; };
+		065F14A61C3A271300724FDC /* ChiefTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 065F14A51C3A271300724FDC /* ChiefTableViewController.m */; };
+		065F14A91C3A3A5500724FDC /* CourseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 065F14A81C3A3A5500724FDC /* CourseTableViewController.m */; };
+		065F14AC1C3A40E100724FDC /* MyNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 065F14AB1C3A40E100724FDC /* MyNavViewController.m */; };
 		068465391C31AE5A00062B0E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 068465381C31AE5A00062B0E /* MapKit.framework */; };
 		0684653D1C31AFE200062B0E /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684653C1C31AFE200062B0E /* API.m */; };
 		283403091A9EBB8200B7DE9B /* GroupSubjectChangingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283403081A9EBB8200B7DE9B /* GroupSubjectChangingViewController.m */; };
@@ -427,6 +431,13 @@
 		062DDAC21C2FBF0E00908998 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		062DDAC31C2FBF0E00908998 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		062DDAD21C2FCF1E00908998 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		064F140E1C394A1C00CB8E61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		065F14A41C3A271300724FDC /* ChiefTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChiefTableViewController.h; sourceTree = "<group>"; };
+		065F14A51C3A271300724FDC /* ChiefTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChiefTableViewController.m; sourceTree = "<group>"; };
+		065F14A71C3A3A5500724FDC /* CourseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseTableViewController.h; sourceTree = "<group>"; };
+		065F14A81C3A3A5500724FDC /* CourseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseTableViewController.m; sourceTree = "<group>"; };
+		065F14AA1C3A40E100724FDC /* MyNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyNavViewController.h; sourceTree = "<group>"; };
+		065F14AB1C3A40E100724FDC /* MyNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyNavViewController.m; sourceTree = "<group>"; };
 		068465381C31AE5A00062B0E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0684653B1C31AFE200062B0E /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
 		0684653C1C31AFE200062B0E /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
@@ -1238,6 +1249,13 @@
 			children = (
 				0684653B1C31AFE200062B0E /* API.h */,
 				0684653C1C31AFE200062B0E /* API.m */,
+				064F140D1C3949E500CB8E61 /* Main.storyboard */,
+				065F14A41C3A271300724FDC /* ChiefTableViewController.h */,
+				065F14A51C3A271300724FDC /* ChiefTableViewController.m */,
+				065F14A71C3A3A5500724FDC /* CourseTableViewController.h */,
+				065F14A81C3A3A5500724FDC /* CourseTableViewController.m */,
+				065F14AA1C3A40E100724FDC /* MyNavViewController.h */,
+				065F14AB1C3A40E100724FDC /* MyNavViewController.m */,
 			);
 			path = YoHelper;
 			sourceTree = "<group>";
@@ -2738,6 +2756,7 @@
 				EBD2AB571A7CDAC000D16528 /* imageDownloadFail@2x.png in Resources */,
 				EBD2AB931A7CDAC000D16528 /* chat_sender_audio_playing_001@2x.png in Resources */,
 				EBD2AB391A7CDAC000D16528 /* call_out.png in Resources */,
+				064F140B1C3949E500CB8E61 /* Main.storyboard in Resources */,
 				EBD2AB1D1A7CDAC000D16528 /* VoiceSearchFeedback007.png in Resources */,
 				EBD2AB991A7CDAC000D16528 /* chat_sender_audio_playing_full@2x.png in Resources */,
 				EBD2AB121A7CDAC000D16528 /* VoiceSearchFeedback001@2x.png in Resources */,
@@ -2817,6 +2836,7 @@
 				90011F921AE4BF090088D549 /* EMAlertView.m in Sources */,
 				90B42A371B65E62C00968342 /* RobotChatViewController.m in Sources */,
 				D2B61E331BC7BEA6007CB53E /* ConversationListController.m in Sources */,
+				065F14A61C3A271300724FDC /* ChiefTableViewController.m in Sources */,
 				062DDACA1C2FBF0E00908998 /* NSDataEx.m in Sources */,
 				3C6BBA0619419EBD00A64684 /* EMRemarkImageView.m in Sources */,
 				D29A6BAC1B72090F002324BB /* UserProfileManager.m in Sources */,
@@ -2832,6 +2852,7 @@
 				3CBF90C019302F5000AD68AE /* BaseViewController.m in Sources */,
 				3C3EB2FC19545FFD00E1AE9E /* PublicGroupListViewController.m in Sources */,
 				D2B61D621BC7A396007CB53E /* EMBubbleView+Gif.m in Sources */,
+				065F14A91C3A3A5500724FDC /* CourseTableViewController.m in Sources */,
 				3C9DDAB4193871D8007C765A /* EMSearchDisplayController.m in Sources */,
 				90133EC11972DFF400C49B56 /* UIViewController+DismissKeyboard.m in Sources */,
 				906083DA1B71F894008574B4 /* EMRotbotChatViewCell.m in Sources */,
@@ -2846,6 +2867,7 @@
 				9003D9161939D8D000DC38A4 /* ApplyViewController.m in Sources */,
 				90911034192EEA70008A48AA /* main.m in Sources */,
 				28BFD6361B01D40500D0ADEC /* ChatroomDetailViewController.m in Sources */,
+				065F14AC1C3A40E100724FDC /* MyNavViewController.m in Sources */,
 				062DDACB1C2FBF0E00908998 /* openssl_wrapper.m in Sources */,
 				9091111A192EEAED008A48AA /* NSDateFormatter+Category.m in Sources */,
 				3C117122197D243B00E2DBEC /* PushNotificationViewController.m in Sources */,
@@ -2891,6 +2913,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		064F140D1C3949E500CB8E61 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				064F140E1C394A1C00CB8E61 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		3C3D2D1E1A6E5A760099EF88 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

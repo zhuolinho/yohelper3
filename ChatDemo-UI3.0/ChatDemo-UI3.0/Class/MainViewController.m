@@ -60,9 +60,9 @@ static NSString *kGroupName = @"GroupName";
     
     //if 使tabBarController中管理的viewControllers都符合 UIRectEdgeNone
     if ([UIDevice currentDevice].systemVersion.floatValue >= 7) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
+//        self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    self.title = NSLocalizedString(@"title.conversation", @"Conversations");
+//    self.title = NSLocalizedString(@"title.conversation", @"Conversations");
     
     //获取未读消息数，此时并没有把self注册为SDK的delegate，读取出的未读数是上次退出程序时的
 //    [self didUnreadMessagesCountChanged];
@@ -105,7 +105,7 @@ static NSString *kGroupName = @"GroupName";
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
 {
-    if (item.tag == 0) {
+    if (item.tag == -1) {
         self.title = NSLocalizedString(@"title.conversation", @"Conversations");
         self.navigationItem.rightBarButtonItem = nil;
     }else if (item.tag == 1){
@@ -155,10 +155,10 @@ static NSString *kGroupName = @"GroupName";
 
 - (void)setupSubviews
 {
-    self.tabBar.backgroundImage = [[UIImage imageNamed:@"tabbarBackground"] stretchableImageWithLeftCapWidth:25 topCapHeight:25];
-    self.tabBar.selectionIndicatorImage = [[UIImage imageNamed:@"tabbarSelectBg"] stretchableImageWithLeftCapWidth:25 topCapHeight:25];
-    
-    _chatListVC = [[ConversationListController alloc] initWithNibName:nil bundle:nil];
+//    self.tabBar.backgroundImage = [[UIImage imageNamed:@"tabbarBackground"] stretchableImageWithLeftCapWidth:25 topCapHeight:25];
+//    self.tabBar.selectionIndicatorImage = [[UIImage imageNamed:@"tabbarSelectBg"] stretchableImageWithLeftCapWidth:25 topCapHeight:25];
+    self.tabBar.tintColor = THEMECOLOR;
+//    _chatListVC = [[ConversationListController alloc] initWithNibName:nil bundle:nil];
     [_chatListVC networkChanged:_connectionState];
     _chatListVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"title.conversation", @"Conversations")
                                                            image:nil
@@ -168,7 +168,7 @@ static NSString *kGroupName = @"GroupName";
     [self unSelectedTapTabBarItems:_chatListVC.tabBarItem];
     [self selectedTapTabBarItems:_chatListVC.tabBarItem];
     
-    _contactsVC = [[ContactListViewController alloc] initWithNibName:nil bundle:nil];
+//    _contactsVC = [[ContactListViewController alloc] initWithNibName:nil bundle:nil];
     _contactsVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"title.addressbook", @"AddressBook")
                                                            image:nil
                                                              tag:1];
@@ -177,7 +177,7 @@ static NSString *kGroupName = @"GroupName";
     [self unSelectedTapTabBarItems:_contactsVC.tabBarItem];
     [self selectedTapTabBarItems:_contactsVC.tabBarItem];
     
-    _settingsVC = [[SettingsViewController alloc] init];
+//    _settingsVC = [[SettingsViewController alloc] init];
     _settingsVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"title.setting", @"Setting")
                                                            image:nil
                                                              tag:2];
@@ -187,7 +187,7 @@ static NSString *kGroupName = @"GroupName";
     [self unSelectedTapTabBarItems:_settingsVC.tabBarItem];
     [self selectedTapTabBarItems:_settingsVC.tabBarItem];
     
-    self.viewControllers = @[_chatListVC, _contactsVC, _settingsVC];
+//    self.viewControllers = @[_chatListVC, _contactsVC, _settingsVC];
     [self selectedTapTabBarItems:_chatListVC.tabBarItem];
 }
 

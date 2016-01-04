@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#define HOST @"http://115.29.166.167:8080"
 
 @protocol APIProtocol;
 

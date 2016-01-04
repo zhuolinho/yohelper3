@@ -20,4 +20,8 @@
 #define KNOTIFICATION_LOGINCHANGE @"loginStateChange"
 
 #define CHATVIEWBACKGROUNDCOLOR [UIColor colorWithRed:0.936 green:0.932 blue:0.907 alpha:1]
+
+#define THEMECOLOR [UIColor colorWithRed:0.293 green:0.754 blue:0.82 alpha:1]
+
+#define HOST @"http://115.29.166.167:8080"
 #endif
