@@ -353,3 +353,6 @@
 "yohelper.wxpay" = "微信支付";
 "yohelper.wxfrd" = "朋友圈";
 "AuthenticationFailure" = "用户名或密码错误.";
+"yohelper.chattitle" = "您和语伴的交流互动记录将会出现在这里，挑个语伴，赶紧体验吧";
+"yoheler.showpartner" = "#推荐语伴";
+"yohelper.change" = "换一批";

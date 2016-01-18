@@ -22,11 +22,16 @@
     [self.navigationBar addSubview:statusBarView];
     [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: THEMECOLOR}];
     [self.navigationBar setTintColor:THEMECOLOR];
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 /*

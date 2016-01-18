@@ -63,7 +63,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
                                                    delegate:nil
                                           cancelButtonTitle:NSLocalizedString(@"ok", @"OK")
                                           otherButtonTitles:nil];
-    [alert show];
+//    [alert show];
 }
 
 // 注册推送
@@ -259,7 +259,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 - (void)didBindDeviceWithError:(EMError *)error
 {
     if (error) {
-        //        TTAlertNoTitle(NSLocalizedString(@"apns.failToBindDeviceToken", @"Fail to bind device token"));
+//        TTAlertNoTitle(NSLocalizedString(@"apns.failToBindDeviceToken", @"Fail to bind device token"));
     }
 }
 
@@ -276,7 +276,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
                                                    delegate:nil
                                           cancelButtonTitle:NSLocalizedString(@"ok", @"OK")
                                           otherButtonTitles:nil];
-    [alert show];
+//    [alert show];
     
 }
 

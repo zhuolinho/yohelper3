@@ -3,21 +3,49 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--语伴-->
         <scene sceneID="4FR-HI-phu">
             <objects>
                 <tableViewController id="7d8-wc-I5n" customClass="ChiefTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="hmf-IJ-S46">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="hmf-IJ-S46">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="D9B-K3-wee">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FirstCell" rowHeight="71" id="D9B-K3-wee">
+                                <rect key="frame" x="0.0" y="114" width="600" height="71"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D9B-K3-wee" id="PMo-Tx-Hg3">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="70"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" tag="999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bbu-Qt-lTn">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="70"/>
+                                        </scrollView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Bbu-Qt-lTn" secondAttribute="bottom" constant="-8" id="G0N-QN-SxR"/>
+                                        <constraint firstItem="Bbu-Qt-lTn" firstAttribute="top" secondItem="PMo-Tx-Hg3" secondAttribute="topMargin" constant="-8" id="ORc-EB-csS"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Bbu-Qt-lTn" secondAttribute="trailing" constant="-8" id="kWg-Fm-cYu"/>
+                                        <constraint firstItem="Bbu-Qt-lTn" firstAttribute="leading" secondItem="PMo-Tx-Hg3" secondAttribute="leadingMargin" constant="-8" id="xr0-Gp-6TG"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SectionCell" id="XEm-39-FbL">
+                                <rect key="frame" x="0.0" y="185" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XEm-39-FbL" id="Iwu-D8-yAO">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ThirdCell" id="k1Q-05-kaH">
+                                <rect key="frame" x="0.0" y="229" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k1Q-05-kaH" id="of9-I0-CTP">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
@@ -29,8 +57,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="语伴" id="MPb-38-2NK">
-                        <barButtonItem key="leftBarButtonItem" image="客服" id="UEV-Wz-oS1"/>
-                        <barButtonItem key="rightBarButtonItem" image="消息" id="Nea-YV-Du0"/>
+                        <barButtonItem key="leftBarButtonItem" image="客服" id="UEV-Wz-oS1">
+                            <connections>
+                                <action selector="serverButtonClick:" destination="7d8-wc-I5n" id="juE-Jf-1No"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="消息" id="Nea-YV-Du0">
+                            <connections>
+                                <action selector="listButtonClick:" destination="7d8-wc-I5n" id="8UK-qv-xCQ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4OU-ll-UMi" userLabel="First Responder" sceneMemberID="firstResponder"/>

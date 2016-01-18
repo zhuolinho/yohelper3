@@ -25,6 +25,18 @@ static NSDictionary *myInfo;
     [self post:@"getMyInfo.action" dic:@{@"token": yo_token}];
 }
 
+- (void)getMyCollectionTeachers {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *yo_token = [ud objectForKey:@"yo_token"];
+    [self post:@"getMyCollectionTeachers.action" dic:@{@"token": yo_token}];
+}
+
+- (void)getTeachersFromJobTag {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *yo_token = [ud objectForKey:@"yo_token"];
+    [self post:@"getTeachersFromJobTag.action" dic:@{@"token": yo_token}];
+}
+
 - (void)post:(NSString *)action dic:(NSDictionary *)dic {
     NSString *str = [NSString stringWithFormat:@"%@/yozaii2/api/%@", HOST, action];
     NSURL *url = [NSURL URLWithString:str];

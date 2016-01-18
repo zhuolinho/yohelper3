@@ -16,6 +16,8 @@
 
 - (void)login:(NSString *)username password:(NSString *)password;
 - (void)getMyInfo;
+- (void)getMyCollectionTeachers;
+- (void)getTeachersFromJobTag;
 
 + (UIImage *)getPicByKey:(NSString *)key;
 + (void)setPicByKey:(NSString *)key pic:(UIImage *)pic;

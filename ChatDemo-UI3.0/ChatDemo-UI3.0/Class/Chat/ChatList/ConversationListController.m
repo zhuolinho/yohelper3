@@ -53,14 +53,14 @@
     [super viewDidLoad];
     [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:NO];
     // Do any additional setup after loading the view.
-    self.showRefreshHeader = YES;
+//    self.showRefreshHeader = YES;
     self.delegate = self;
     self.dataSource = self;
     
     [self tableViewDidTriggerHeaderRefresh];
     
-    [self.view addSubview:self.searchBar];
-    self.tableView.frame = CGRectMake(0, self.searchBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.searchBar.frame.size.height);
+//    [self.view addSubview:self.searchBar];
+//    self.tableView.frame = CGRectMake(0, self.searchBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.searchBar.frame.size.height);
     [self networkStateView];
     
     [self searchController];
@@ -194,6 +194,11 @@
             } else {
                 ChatViewController *chatController = [[ChatViewController alloc] initWithConversationChatter:conversation.chatter conversationType:conversation.conversationType];
                 chatController.title = conversationModel.title;
+                if ([conversation.chatter isEqualToString:@"custom_service"]) {
+                    chatController.isService = YES;
+                } else {
+                    chatController.isService = NO;
+                }
                 [self.navigationController pushViewController:chatController animated:YES];
             }
         }
@@ -221,8 +226,9 @@
         }
         if ([API getAvatarByKey:conversation.chatter]) {
             model.avatarURLPath = [API getAvatarByKey:conversation.chatter];
+        } else {
+            [self post:@"getAvatarAndNicknameFromUid.action" username:conversation.chatter];
         }
-        [self post:@"getAvatarAndNicknameFromUid.action" username:conversation.chatter];
     } else if (model.conversation.conversationType == eConversationTypeGroupChat) {
         NSString *imageName = @"groupPublicHeader";
         if (![conversation.ext objectForKey:@"groupSubject"] || ![conversation.ext objectForKey:@"isPublic"])
@@ -429,7 +435,7 @@
                         NSString *avatar = [NSString stringWithFormat:@"%@%@", HOST, [res[@"avatar"] componentsSeparatedByString:@","][0]];
                         [API setAvatarByKey:username name:avatar];
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            [self.tableView reloadData];
+                            [self tableViewDidTriggerHeaderRefresh];
                         });
                     }
                 }

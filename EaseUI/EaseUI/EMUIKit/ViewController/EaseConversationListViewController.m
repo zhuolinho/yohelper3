@@ -15,7 +15,9 @@
 #import "EaseConvertToCommonEmoticonsHelper.h"
 #import "NSDate+Category.h"
 
-@interface EaseConversationListViewController () <IChatManagerDelegate>
+@interface EaseConversationListViewController () <IChatManagerDelegate> {
+    UILabel *hintLabel;
+}
 
 @end
 
@@ -37,6 +39,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    hintLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.width/10, self.view.frame.size.height/5, self.view.frame.size.width - self.view.frame.size.width/5, 40)];
+    hintLabel.textColor = [UIColor darkGrayColor];
+    hintLabel.font = [UIFont systemFontOfSize:15];
+    hintLabel.numberOfLines  = 2;
+    hintLabel.textAlignment = NSTextAlignmentCenter;
+    hintLabel.text = NSLocalizedString(@"yohelper.chattitle", @"您和语伴的交流互动记录将会出现在这里，挑个语伴，赶紧体验吧");
+    [self.tableView addSubview:hintLabel];
     // Do any additional setup after loading the view.
 }
 
@@ -153,6 +162,12 @@
     }
 
     [self tableViewDidFinishTriggerHeader:YES reload:YES];
+    
+    if (conversations.count > 0) {
+        hintLabel.hidden = YES;
+    } else {
+        hintLabel.hidden = NO;
+    }
 }
 
 #pragma mark - IChatMangerDelegate

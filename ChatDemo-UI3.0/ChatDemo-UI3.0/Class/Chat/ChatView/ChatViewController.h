@@ -10,4 +10,6 @@
 
 @interface ChatViewController : EaseMessageViewController
 
+@property BOOL isService;
+
 @end
