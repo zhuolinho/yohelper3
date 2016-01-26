@@ -10,12 +10,16 @@
 #import "ChatViewController.h"
 #import "ConversationListController.h"
 #import "API.h"
+#import "WebViewController.h"
 
-@interface ChiefTableViewController () <APIProtocol> {
+@interface ChiefTableViewController () <APIProtocol, UIActionSheetDelegate> {
     UIScrollView *scrollView;
     API *getCollection;
     NSArray *chiefTeacher;
     API *refresh;
+    API *operation;
+    NSArray *res;
+    NSDictionary *mark;
 }
 
 @end
@@ -29,6 +33,8 @@
     getCollection.delegate = self;
     refresh = [[API alloc]init];
     refresh.delegate = self;
+    operation = [[API alloc]init];
+    operation.delegate = self;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -119,13 +125,155 @@
         }
         
     } else {
-        cell = [[UITableViewCell alloc]init];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"ThirdCell" forIndexPath:indexPath];
+        [cell removeFromSuperview];
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ThirdCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [UIColor clearColor];
+        NSMutableArray *myView = [[NSMutableArray alloc]init];
+        UIView *view0 = [[UIView alloc]initWithFrame:CGRectMake(10, 0, 160 * x - 15, 185)];
+        [myView addObject:view0];
+        UIView *view1 = [[UIView alloc]initWithFrame:CGRectMake(160 * x + 5, 0, 160 * x -15, 185)];
+        [myView addObject:view1];
+        UIView *view2 = [[UIView alloc]initWithFrame:CGRectMake(10, 180 + 10, 160 * x - 15, 185)];
+        [myView addObject:view2];
+        UIView *view3 = [[UIView alloc]initWithFrame:CGRectMake(160 * x + 5, 180 + 10, 160 * x - 15, 185)];
+        [myView addObject:view3];
+        for (int i = 0; i < res.count; i++) {
+            [myView[i]setBackgroundColor:[UIColor whiteColor]];
+            [cell addSubview:myView[i]];
+            UIImageView *avatarView = [[UIImageView alloc]initWithFrame:CGRectMake(80 * x - 37.5, 20, 60, 60)];
+            avatarView.layer.cornerRadius = 30;
+            avatarView.layer.masksToBounds = YES;
+            [myView[i]addSubview:avatarView];
+            UIButton *videoButton = [[UIButton alloc]initWithFrame:CGRectMake(80 * x - 37.5, 20, 60, 60)];
+            videoButton.tag = i;
+            [videoButton addTarget:self action:@selector(videoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            [myView[i]addSubview:videoButton];
+            UIImageView *playImg = [[UIImageView alloc]initWithFrame:CGRectMake(80 * x + 1.5, 59, 21, 21)];
+            playImg.image = [UIImage imageNamed:@"播放"];
+            [myView[i]addSubview:playImg];
+            UIButton *shareButton = [[UIButton alloc]initWithFrame:CGRectMake(110 * x - 20, 5, 50, 20)];
+            [shareButton setBackgroundImage:[UIImage imageNamed:@"设为首席bg"] forState:UIControlStateNormal];
+            shareButton.tag = i;
+            [shareButton addTarget:self action:@selector(shareButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            [shareButton setTitle:NSLocalizedString(@"yoheler.setchief", @"设为首席") forState:UIControlStateNormal];
+            shareButton.titleLabel.font = [UIFont systemFontOfSize:10];
+            [myView[i]addSubview:shareButton];
+            UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 80, 160 * x - 15, 30)];
+            nameLabel.textAlignment = NSTextAlignmentCenter;
+            nameLabel.text = res[i][@"nickname"];
+            nameLabel.textColor = [UIColor lightGrayColor];
+            [myView[i]addSubview:nameLabel];
+            UILabel *spetor1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 110, 160 * x - 15, 0.5)];
+            spetor1.backgroundColor = [UIColor lightGrayColor];
+            [myView[i]addSubview:spetor1];
+            UILabel *spetor2 =  [[UILabel alloc]initWithFrame:CGRectMake(0, 145, 160 * x - 15, 0.5)];
+            spetor2.backgroundColor = [UIColor lightGrayColor];
+            [myView[i]addSubview:spetor2];
+            UIImageView *langImage = [[UIImageView alloc]initWithFrame:CGRectMake(80 * x - 43, 116, 9, 11)];
+            langImage.image = [UIImage imageNamed:@"语种tag"];
+            [myView[i]addSubview:langImage];
+            UILabel *langLabel = [[UILabel alloc]initWithFrame:CGRectMake(6, 116, 160 * x - 55, 11)];
+            langLabel.font = [UIFont systemFontOfSize:11];
+            langLabel.textColor = [UIColor lightGrayColor];
+            NSString *lang = [API LanguageString:[res[i][@"lang"]unsignedIntegerValue]];
+            langLabel.text = NSLocalizedString(lang, lang);
+            langLabel.textAlignment = NSTextAlignmentCenter;
+            [myView[i]addSubview:langLabel];
+            UIImageView *conImage = [[UIImageView alloc]initWithFrame:CGRectMake(80 * x - 2, 116, 13, 12)];
+            conImage.image = [UIImage imageNamed:@"国籍tag"];
+            [myView[i]addSubview:conImage];
+            NSString *con = [API CountryString:[res[i][@"lang"]unsignedIntegerValue]];
+            UILabel *conLabel = [[UILabel alloc]initWithFrame:CGRectMake(80 * x + 13, 116, 80, 11)];
+            conLabel.font = [UIFont systemFontOfSize:11];
+            conLabel.textColor = [UIColor lightGrayColor];
+            conLabel.text = NSLocalizedString(con, con);
+            [myView[i]addSubview:conLabel];
+            UIImageView *loveImage = [[UIImageView alloc]initWithFrame:CGRectMake(80 * x - 50, 129, 12, 11)];
+            loveImage.image = [UIImage imageNamed:@"喜欢"];
+            [myView[i]addSubview:loveImage];
+            UILabel *loveLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 130, 160 * x, 11)];
+            loveLabel.font = [UIFont systemFontOfSize:11];
+            loveLabel.textColor = [UIColor lightGrayColor];
+            loveLabel.textAlignment = NSTextAlignmentCenter;
+            loveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"yohelper.chineseLevel", @"汉语水平：%@"), res[i][@"chineseLevel"]];
+            [myView[i]addSubview:loveLabel];
+            UIButton *chatButton = [[UIButton alloc]initWithFrame:CGRectMake(15, 153, 160 * x - 45, 25)];
+            if ([res[i][@"iffree"]integerValue] == 0) {
+                chatButton.backgroundColor = THEMECOLOR;
+                chatButton.enabled = YES;
+            } else {
+                chatButton.backgroundColor = [UIColor lightGrayColor];
+                chatButton.enabled = NO;
+            }
+            [chatButton setTitle:@"免费体验" forState:UIControlStateNormal];
+            chatButton.layer.cornerRadius = 10;
+            chatButton.layer.masksToBounds = YES;
+            chatButton.titleLabel.font = [UIFont systemFontOfSize:15];
+            chatButton.tag = i;
+            [chatButton addTarget:self action:@selector(chatButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            [myView[i]addSubview:chatButton];
+            NSString *savedFile = res[i][@"avatar"];
+            if ([API getPicByKey:savedFile]) {
+                avatarView.image = [API getPicByKey:savedFile];
+            } else {
+                NSString *str = [NSString stringWithFormat:@"%@%@", HOST, savedFile];
+                NSURL *url = [NSURL URLWithString:str];
+                NSURLRequest *requst = [NSURLRequest requestWithURL:url];
+                [NSURLConnection sendAsynchronousRequest:requst queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+                    if (connectionError == nil) {
+                        UIImage *img = [UIImage imageWithData:data];
+                        if (img) {
+                            [API setPicByKey:savedFile pic:img];
+                            avatarView.image = img;
+                        }
+                    }
+                }];
+            }
+        }
     }
     
     
     // Configure the cell...
     
     return cell;
+}
+
+- (void)videoButtonClick:(UIButton *)button {
+    WebViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WebViewController"];
+    vc.url = res[button.tag][@"personalUrl"];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)shareButtonClick:(UIButton *)button {
+    if (chiefTeacher.count == 0) {
+        mark = res[button.tag];
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:NSLocalizedString(@"yohelper.settitle", "分享到朋友圈可免费设置首席语伴，每月一次") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") destructiveButtonTitle:NSLocalizedString(@"yohelper.wxfrd", @"朋友圈") otherButtonTitles:NSLocalizedString(@"yohelper.wxpay", @"微信支付"), NSLocalizedString(@"yohelper.alipay", @"支付宝支付"), nil];
+//        sheet.title = NSLocalizedString(@"yohelper.settitle", "分享到朋友圈可免费设置首席语伴，每月一次");
+        sheet.delegate = self;
+//        [sheet addButtonWithTitle:NSLocalizedString(@"yohelper.alipay", @"支付宝支付")];
+//        [sheet addButtonWithTitle:NSLocalizedString(@"yohelper.wxpay", @"微信支付")];
+//        [sheet addButtonWithTitle:NSLocalizedString(@"yohelper.wxfrd", @"朋友圈")];
+//        [sheet addButtonWithTitle:NSLocalizedString(@"cancel", @"Cancel")];
+//        sheet.cancelButtonIndex = 3;
+        [sheet showFromTabBar:self.tabBarController.tabBar];
+    }
+}
+
+- (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
+    NSLog(@"%lu", (unsigned long)actionSheet.subviews.count);
+}
+
+- (void)chatButtonClick:(UIButton *)button {
+    ChatViewController *chatVC = [[ChatViewController alloc]initWithConversationChatter:res[button.tag][@"username"] conversationType:eConversationTypeChat];
+    chatVC.title = res[button.tag][@"nickname"];
+    chatVC.hidesBottomBarWhenPushed = YES;
+    chatVC.isService = NO;
+    NSString *avatar = [NSString stringWithFormat:@"%@%@", HOST, res[button.tag][@"avatar"]];
+    [API setAvatarByKey:res[button.tag][@"username"] name:avatar];
+    [self.navigationController pushViewController:chatVC animated:YES];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -155,13 +303,22 @@
 }
 
 - (void)didReceiveAPIResponseOf:(API *)api data:(NSDictionary *)data {
-    NSLog(@"%@", data);
-    chiefTeacher = data[@"result"];
-    [self.tableView reloadData];
+    if (api == refresh) {
+        NSLog(@"%@", data);
+        res = data[@"result"];
+        [self.tableView reloadData];
+    } else if (api == getCollection) {
+        chiefTeacher = data[@"result"];
+        [self.tableView reloadData];
+    }
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSLog(@"%ld", (long)buttonIndex);
 }
 
 - (IBAction)serverButtonClick:(id)sender {
-    ChatViewController *chatVC = [[ChatViewController alloc]initWithConversationChatter: @"custom_service" conversationType:eConversationTypeChat];
+    ChatViewController *chatVC = [[ChatViewController alloc]initWithConversationChatter:@"custom_service" conversationType:eConversationTypeChat];
     chatVC.title = @"外语帮手客服";
     chatVC.hidesBottomBarWhenPushed = YES;
     chatVC.isService = YES;

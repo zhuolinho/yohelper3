@@ -28,6 +28,9 @@
 + (NSDictionary *)getInfo;
 + (void)setInfo:(NSDictionary *)info;
 
++ (NSString *)LanguageString:(NSUInteger)num;
++ (NSString *)CountryString:(NSUInteger)num;
+
 @end
 
 @protocol APIProtocol <NSObject>

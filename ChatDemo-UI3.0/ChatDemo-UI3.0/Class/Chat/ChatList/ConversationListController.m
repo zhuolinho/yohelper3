@@ -56,6 +56,7 @@
 //    self.showRefreshHeader = YES;
     self.delegate = self;
     self.dataSource = self;
+    self.title = NSLocalizedString(@"yohelper.message", @"消息");
     
     [self tableViewDidTriggerHeaderRefresh];
     

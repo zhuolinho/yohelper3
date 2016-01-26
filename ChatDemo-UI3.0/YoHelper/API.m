@@ -136,8 +136,16 @@ static NSDictionary *myInfo;
     myInfo = info;
 }
 
-+(NSDictionary *)getInfo {
++ (NSDictionary *)getInfo {
     return myInfo;
+}
+
++ (NSString *)LanguageString:(NSUInteger)num {
+    return @[@"All", @"English", @"French", @"Japanese", @"Korean", @"Spanish", @"Russian", @"German", @"Chinese"][num];
+}
+
++ (NSString *)CountryString:(NSUInteger)num {
+    return @[@"Other", @"US", @"UK", @"Japan", @"Korea", @"Spain", @"Italy", @"Germany", @"France", @"Belgium", @"Philippine", @"Malaysia", @"Switzerland", @"Australia", @"Thailand", @"Sweden", @"India", @"Iran", @"Russia", @"Other"][num];
 }
 
 @end

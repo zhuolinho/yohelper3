@@ -30,6 +30,7 @@
 		065F14AC1C3A40E100724FDC /* MyNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 065F14AB1C3A40E100724FDC /* MyNavViewController.m */; };
 		068465391C31AE5A00062B0E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 068465381C31AE5A00062B0E /* MapKit.framework */; };
 		0684653D1C31AFE200062B0E /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684653C1C31AFE200062B0E /* API.m */; };
+		06BA054A1C55189A00D6E288 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06BA05491C55189A00D6E288 /* WebViewController.m */; };
 		283403091A9EBB8200B7DE9B /* GroupSubjectChangingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283403081A9EBB8200B7DE9B /* GroupSubjectChangingViewController.m */; };
 		28BB9D1C1B2AFB2900AB7BA2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 28BB9D1B1B2AFB2900AB7BA2 /* Settings.bundle */; };
 		28BFD6361B01D40500D0ADEC /* ChatroomDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFD6311B01D40500D0ADEC /* ChatroomDetailViewController.m */; };
@@ -441,6 +442,8 @@
 		068465381C31AE5A00062B0E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0684653B1C31AFE200062B0E /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
 		0684653C1C31AFE200062B0E /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
+		06BA05481C55189A00D6E288 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		06BA05491C55189A00D6E288 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		283403071A9EBB8200B7DE9B /* GroupSubjectChangingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSubjectChangingViewController.h; sourceTree = "<group>"; };
 		283403081A9EBB8200B7DE9B /* GroupSubjectChangingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupSubjectChangingViewController.m; sourceTree = "<group>"; };
 		28BB9D1B1B2AFB2900AB7BA2 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -1256,6 +1259,8 @@
 				065F14A81C3A3A5500724FDC /* CourseTableViewController.m */,
 				065F14AA1C3A40E100724FDC /* MyNavViewController.h */,
 				065F14AB1C3A40E100724FDC /* MyNavViewController.m */,
+				06BA05481C55189A00D6E288 /* WebViewController.h */,
+				06BA05491C55189A00D6E288 /* WebViewController.m */,
 			);
 			path = YoHelper;
 			sourceTree = "<group>";
@@ -2837,6 +2842,7 @@
 				90B42A371B65E62C00968342 /* RobotChatViewController.m in Sources */,
 				D2B61E331BC7BEA6007CB53E /* ConversationListController.m in Sources */,
 				065F14A61C3A271300724FDC /* ChiefTableViewController.m in Sources */,
+				06BA054A1C55189A00D6E288 /* WebViewController.m in Sources */,
 				062DDACA1C2FBF0E00908998 /* NSDataEx.m in Sources */,
 				3C6BBA0619419EBD00A64684 /* EMRemarkImageView.m in Sources */,
 				D29A6BAC1B72090F002324BB /* UserProfileManager.m in Sources */,

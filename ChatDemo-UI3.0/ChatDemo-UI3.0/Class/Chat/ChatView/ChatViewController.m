@@ -452,15 +452,12 @@
     sheet.delegate = self;
     [sheet addButtonWithTitle:NSLocalizedString(@"yohelper.alipay", @"支付宝支付")];
     [sheet addButtonWithTitle:NSLocalizedString(@"yohelper.wxpay", @"微信支付")];
-    if (0) {
-        [sheet addButtonWithTitle:NSLocalizedString(@"cancel", @"Cancel")];
-        sheet.cancelButtonIndex = 2;
-    } else {
-        [sheet addButtonWithTitle:NSLocalizedString(@"yohelper.wxfrd", @"朋友圈")];
-        [sheet addButtonWithTitle:NSLocalizedString(@"cancel", @"Cancel")];
-        sheet.cancelButtonIndex = 3;
-    }
-    [sheet showInView:self.view];
+    [sheet addButtonWithTitle:NSLocalizedString(@"yohelper.wxfrd", @"朋友圈")];
+    [sheet addButtonWithTitle:NSLocalizedString(@"cancel", @"Cancel")];
+    sheet.cancelButtonIndex = 3;
+    NSLog(@"%lu", (unsigned long)sheet.subviews.count);
+    [sheet showFromTabBar:self.tabBarController.tabBar];
+    NSLog(@"%lu", (unsigned long)sheet.subviews.count);
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
