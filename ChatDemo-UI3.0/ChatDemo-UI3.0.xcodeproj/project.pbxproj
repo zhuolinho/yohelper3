@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0625D2E41C5717B600DB81E9 /* IBActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0625D2E31C5717B600DB81E9 /* IBActionSheet.m */; };
 		062DDA581C2FB4F400908998 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 062DDA531C2FB4F400908998 /* libWeChatSDK.a */; };
 		062DDA591C2FB4F400908998 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 062DDA541C2FB4F400908998 /* read_me.txt */; };
 		062DDAC41C2FBF0E00908998 /* AlipayRequestConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 062DDA5E1C2FBF0E00908998 /* AlipayRequestConfig.m */; };
@@ -31,6 +32,8 @@
 		068465391C31AE5A00062B0E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 068465381C31AE5A00062B0E /* MapKit.framework */; };
 		0684653D1C31AFE200062B0E /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 0684653C1C31AFE200062B0E /* API.m */; };
 		06BA054A1C55189A00D6E288 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06BA05491C55189A00D6E288 /* WebViewController.m */; };
+		06D0AC4F1C60603E0028B2F5 /* MeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D0AC4E1C60603E0028B2F5 /* MeTableViewController.m */; };
+		06D0AC521C6061610028B2F5 /* MyProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D0AC511C6061610028B2F5 /* MyProfileTableViewController.m */; };
 		283403091A9EBB8200B7DE9B /* GroupSubjectChangingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283403081A9EBB8200B7DE9B /* GroupSubjectChangingViewController.m */; };
 		28BB9D1C1B2AFB2900AB7BA2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 28BB9D1B1B2AFB2900AB7BA2 /* Settings.bundle */; };
 		28BFD6361B01D40500D0ADEC /* ChatroomDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFD6311B01D40500D0ADEC /* ChatroomDetailViewController.m */; };
@@ -325,6 +328,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0625D2E21C5717B600DB81E9 /* IBActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBActionSheet.h; sourceTree = "<group>"; };
+		0625D2E31C5717B600DB81E9 /* IBActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBActionSheet.m; sourceTree = "<group>"; };
 		062DDA531C2FB4F400908998 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		062DDA541C2FB4F400908998 /* read_me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = read_me.txt; sourceTree = "<group>"; };
 		062DDA551C2FB4F400908998 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
@@ -444,6 +449,10 @@
 		0684653C1C31AFE200062B0E /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
 		06BA05481C55189A00D6E288 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		06BA05491C55189A00D6E288 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		06D0AC4D1C60603E0028B2F5 /* MeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeTableViewController.h; sourceTree = "<group>"; };
+		06D0AC4E1C60603E0028B2F5 /* MeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeTableViewController.m; sourceTree = "<group>"; };
+		06D0AC501C6061610028B2F5 /* MyProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProfileTableViewController.h; sourceTree = "<group>"; };
+		06D0AC511C6061610028B2F5 /* MyProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyProfileTableViewController.m; sourceTree = "<group>"; };
 		283403071A9EBB8200B7DE9B /* GroupSubjectChangingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSubjectChangingViewController.h; sourceTree = "<group>"; };
 		283403081A9EBB8200B7DE9B /* GroupSubjectChangingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupSubjectChangingViewController.m; sourceTree = "<group>"; };
 		28BB9D1B1B2AFB2900AB7BA2 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -1095,6 +1104,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0625D2E11C5717B600DB81E9 /* IBActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				0625D2E21C5717B600DB81E9 /* IBActionSheet.h */,
+				0625D2E31C5717B600DB81E9 /* IBActionSheet.m */,
+			);
+			path = IBActionSheet;
+			sourceTree = "<group>";
+		};
 		062DDA521C2FB4F400908998 /* SDKExport */ = {
 			isa = PBXGroup;
 			children = (
@@ -1261,6 +1279,10 @@
 				065F14AB1C3A40E100724FDC /* MyNavViewController.m */,
 				06BA05481C55189A00D6E288 /* WebViewController.h */,
 				06BA05491C55189A00D6E288 /* WebViewController.m */,
+				06D0AC4D1C60603E0028B2F5 /* MeTableViewController.h */,
+				06D0AC4E1C60603E0028B2F5 /* MeTableViewController.m */,
+				06D0AC501C6061610028B2F5 /* MyProfileTableViewController.h */,
+				06D0AC511C6061610028B2F5 /* MyProfileTableViewController.m */,
 			);
 			path = YoHelper;
 			sourceTree = "<group>";
@@ -1442,6 +1464,7 @@
 		9091101B192EEA70008A48AA = {
 			isa = PBXGroup;
 			children = (
+				0625D2E11C5717B600DB81E9 /* IBActionSheet */,
 				0684653A1C31AFE200062B0E /* YoHelper */,
 				062DDA5A1C2FBF0E00908998 /* IntegratedAlipay */,
 				90C641DA1B09CAC400E1E6C9 /* EaseMobSDK */,
@@ -2881,9 +2904,11 @@
 				90985E481A8A08D400976DD6 /* InvitationManager.m in Sources */,
 				0684653D1C31AFE200062B0E /* API.m in Sources */,
 				D2B61E361BC7C76B007CB53E /* ContactListViewController.m in Sources */,
+				06D0AC521C6061610028B2F5 /* MyProfileTableViewController.m in Sources */,
 				D2B61E2E1BC7A9B3007CB53E /* EMGifImage.m in Sources */,
 				90517D6A1A5C3DB0008F1315 /* AppDelegate+UMeng.m in Sources */,
 				3C2923B11988E13300DCCD40 /* BlackListViewController.m in Sources */,
+				06D0AC4F1C60603E0028B2F5 /* MeTableViewController.m in Sources */,
 				062DDAC51C2FBF0E00908998 /* Order.m in Sources */,
 				9091112F192EEC0F008A48AA /* SettingsViewController.m in Sources */,
 				062DDAC61C2FBF0E00908998 /* base64.m in Sources */,
@@ -2894,6 +2919,7 @@
 				90911119192EEAED008A48AA /* NSDate+Category.m in Sources */,
 				3C6FFA2419A2F5560003EB25 /* DebugViewController.m in Sources */,
 				90B42A381B65E62C00968342 /* RobotManager.m in Sources */,
+				0625D2E41C5717B600DB81E9 /* IBActionSheet.m in Sources */,
 				3C35365C19A22164003EF79E /* GroupSettingViewController.m in Sources */,
 				905325CF1932ED8B00F064D7 /* EMSearchBar.m in Sources */,
 				3C914D8619514BBD0002DAD3 /* CreateGroupViewController.m in Sources */,

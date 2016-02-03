@@ -7,8 +7,18 @@
 //
 
 #import "CourseTableViewController.h"
+#import "API.h"
+#import "ChatViewController.h"
+#import "IBActionSheet.h"
+#import "WebViewController.h"
 
-@interface CourseTableViewController ()
+@interface CourseTableViewController () <APIProtocol, IBActionSheetDelegate> {
+    UIImageView *networkErr;
+    API *chiefAPI;
+    API *refreshCourses;
+    NSArray *dataSource;
+    NSArray *chiefTeacher;
+}
 
 @end
 
@@ -16,7 +26,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    networkErr = [[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width / 2 - 28, 180, 56, 56)];
+    networkErr.image = [UIImage imageNamed:@"NetworkError"];
+    [self.tableView addSubview:networkErr];
+    networkErr.hidden = YES;
+    chiefAPI = [[API alloc]init];
+    chiefAPI.delegate = self;
+    refreshCourses = [[API alloc]init];
+    refreshCourses.delegate = self;
+    [refreshCourses getTopicNews];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -29,27 +47,195 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [chiefAPI getMyCollectionTeachers];
+    [refreshCourses getTopicNews];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 0;
+    return dataSource.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 0;
+    return 3;
 }
 
-/*
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return 60;
+    } else if (indexPath.row == 2) {
+        return 22;
+    }
+    return 140;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 12;
+    } else {
+        return 6;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 6;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell;
+    if (indexPath.row == 1) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"TopicNewsCell" forIndexPath:indexPath];
+        UIImageView *coverImage = [cell viewWithTag:222];
+        coverImage.contentMode = UIViewContentModeScaleAspectFill;
+        coverImage.clipsToBounds = YES;
+        UILabel *titleLabel = [cell viewWithTag:111];
+        titleLabel.text = dataSource[indexPath.section][@"title"];
+        UILabel *desLabel = [cell viewWithTag:333];
+        desLabel.text = dataSource[indexPath.section][@"description"];
+        NSString *savedFile = dataSource[indexPath.section][@"cover_url"];
+        if ([API getPicByKey:savedFile]) {
+            coverImage.image = [API getPicByKey:savedFile];
+        } else {
+            coverImage.image = [UIImage imageNamed:@"DefaultAvatar"];
+            NSString *str = [NSString stringWithFormat:@"%@%@", HOST, savedFile];
+            NSURL *url = [NSURL URLWithString:str];
+            NSURLRequest *requst = [NSURLRequest requestWithURL:url];
+            [NSURLConnection sendAsynchronousRequest:requst queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+                if (connectionError == nil) {
+                    UIImage *img = [UIImage imageWithData:data];
+                    if (img) {
+                        [API setPicByKey:savedFile pic:img];
+                        coverImage.image = img;
+                    }
+                }
+            }];
+        }
+    } else if (indexPath.row == 0) {
+        cell = [[UITableViewCell alloc]init];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [UIColor clearColor];
+        UIView *blankView = [[UIView alloc]initWithFrame:CGRectMake(8, 0, self.view.bounds.size.width - 16, 60)];
+        blankView.backgroundColor = [UIColor whiteColor];
+        [cell addSubview:blankView];
+        UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(56, 10, 100, 20)];
+        nameLabel.text = dataSource[indexPath.section][@"teacherNickname"];
+        [blankView addSubview:nameLabel];
+        UIImageView *avatarView = [[UIImageView alloc]initWithFrame:CGRectMake(8, 10, 40, 40)];
+        avatarView.layer.cornerRadius = 20;
+        avatarView.layer.masksToBounds = YES;
+        [blankView addSubview:avatarView];
+        UILabel *conLabel = [[UILabel alloc]initWithFrame:CGRectMake(56, 30, 100, 20)];
+        NSString *con = [API CountryString:[dataSource[indexPath.section][@"lang"]unsignedIntegerValue]];
+        conLabel.text = [NSString stringWithFormat:NSLocalizedString(@"yohelper.lang", @"语言：%@"), NSLocalizedString(con, con)];
+        conLabel.font = [UIFont systemFontOfSize:15];
+        conLabel.textColor = [UIColor lightGrayColor];
+        [blankView addSubview:conLabel];
+        UIButton *chatButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 168, 20, 68, 20)];
+        [chatButton setBackgroundImage:[UIImage imageNamed:@"未标题-1"] forState:UIControlStateNormal];
+        [chatButton setTitle:NSLocalizedString(@"yohelper.freechat", @"免费体验") forState:UIControlStateNormal];
+        chatButton.titleLabel.font = [UIFont systemFontOfSize:13];
+        chatButton.tag = indexPath.section;
+        [chatButton setTitleColor:RGBACOLOR(246, 107, 107, 1) forState:UIControlStateNormal];
+        [chatButton addTarget:self action:@selector(chatButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [blankView addSubview:chatButton];
+        UIButton *shareButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 92, 20, 68, 20)];
+        [shareButton setBackgroundImage:[UIImage imageNamed:@"未标题-2"] forState:UIControlStateNormal];
+        [shareButton setTitle:NSLocalizedString(@"yoheler.setchief", @"设置首席") forState:UIControlStateNormal];
+        shareButton.titleLabel.font = [UIFont systemFontOfSize:13];
+        shareButton.tag = indexPath.section;
+        [shareButton addTarget:self action:@selector(shareButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [blankView addSubview:shareButton];
+        NSString *savedFile = dataSource[indexPath.section][@"teacherAvatar"];
+        if ([API getPicByKey:savedFile]) {
+            avatarView.image = [API getPicByKey:savedFile];
+        } else {
+            avatarView.image = [UIImage imageNamed:@"DefaultAvatar"];
+            NSString *str = [NSString stringWithFormat:@"%@%@", HOST, savedFile];
+            NSURL *url = [NSURL URLWithString:str];
+            NSURLRequest *requst = [NSURLRequest requestWithURL:url];
+            [NSURLConnection sendAsynchronousRequest:requst queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+                if (connectionError == nil) {
+                    UIImage *img = [UIImage imageWithData:data];
+                    if (img) {
+                        [API setPicByKey:savedFile pic:img];
+                        avatarView.image = img;
+                    }
+                }
+            }];
+        }
+    } else {
+        cell = [[UITableViewCell alloc]init];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [UIColor clearColor];
+        UIView *blankView = [[UIView alloc]initWithFrame:CGRectMake(8, 1, self.view.bounds.size.width - 16, 21)];
+        blankView.backgroundColor = [UIColor whiteColor];
+        [cell addSubview:blankView];
+        UILabel *viewLabel = [[UILabel alloc]initWithFrame:CGRectMake(8, 1, self.view.bounds.size.width - 24, 21)];
+        viewLabel.textColor = [UIColor lightGrayColor];
+        viewLabel.text = NSLocalizedString(@"yoheler.viewall", @"查看全文");
+        viewLabel.textAlignment = NSTextAlignmentRight;
+        viewLabel.font = [UIFont systemFontOfSize:13];
+        [cell addSubview:viewLabel];
+    }
     
     // Configure the cell...
     
     return cell;
 }
-*/
+
+- (void)chatButtonClick:(UIButton *)button {
+    ChatViewController *chatVC = [[ChatViewController alloc]initWithConversationChatter:dataSource[button.tag][@"teacherUsername"] conversationType:eConversationTypeChat];
+    chatVC.title = dataSource[button.tag][@"teacherNickname"];
+    chatVC.hidesBottomBarWhenPushed = YES;
+    chatVC.isService = NO;
+    NSString *avatar = [NSString stringWithFormat:@"%@%@", HOST, dataSource[button.tag][@"teacherAvatar"]];
+    [API setAvatarByKey:dataSource[button.tag][@"teacherUsername"] name:avatar];
+    [self.navigationController pushViewController:chatVC animated:YES];
+}
+
+- (void)shareButtonClick:(UIButton *)button {
+    if (chiefTeacher.count == 0) {
+        IBActionSheet *sheet = [[IBActionSheet alloc]initWithTitle:NSLocalizedString(@"yohelper.settitle", "分享到朋友圈可免费设置首席语伴，每月一次") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") destructiveButtonTitle:NSLocalizedString(@"yohelper.wxfrd", @"朋友圈") otherButtonTitles:NSLocalizedString(@"yohelper.wxpay", @"微信支付"), NSLocalizedString(@"yohelper.alipay", @"支付宝支付"), nil];
+        sheet.delegate = self;
+        [sheet setButtonTextColor:[UIColor lightGrayColor] forButtonAtIndex:0];
+        [sheet showInView:[UIApplication sharedApplication].keyWindow];
+        sheet.tag = button.tag;
+    }
+}
+
+- (void)didReceiveAPIErrorOf:(API *)api data:(long)errorNo {
+    if (api == refreshCourses && dataSource.count == 0) {
+        networkErr.hidden = NO;
+    }
+}
+
+- (void)didReceiveAPIResponseOf:(API *)api data:(NSDictionary *)data {
+    if (api == refreshCourses) {
+        networkErr.hidden = YES;
+        dataSource = data[@"result"];
+        [self.tableView reloadData];
+        NSLog(@"%@", dataSource);
+    } else {
+        chiefTeacher = data[@"result"];
+    }
+}
+
+- (void)actionSheet:(IBActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSLog(@"%ld", (long)actionSheet.tag);
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row != 0) {
+        WebViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WebViewController"];
+        vc.url = dataSource[indexPath.section][@"url"];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
 
 /*
 // Override to support conditional editing of the table view.

@@ -37,6 +37,10 @@ static NSDictionary *myInfo;
     [self post:@"getTeachersFromJobTag.action" dic:@{@"token": yo_token}];
 }
 
+- (void)getTopicNews {
+    [self post:@"getTopicNews.action" dic:nil];
+}
+
 - (void)post:(NSString *)action dic:(NSDictionary *)dic {
     NSString *str = [NSString stringWithFormat:@"%@/yozaii2/api/%@", HOST, action];
     NSURL *url = [NSURL URLWithString:str];

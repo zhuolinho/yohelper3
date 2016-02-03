@@ -18,6 +18,7 @@
 - (void)getMyInfo;
 - (void)getMyCollectionTeachers;
 - (void)getTeachersFromJobTag;
+- (void)getTopicNews;
 
 + (UIImage *)getPicByKey:(NSString *)key;
 + (void)setPicByKey:(NSString *)key pic:(UIImage *)pic;

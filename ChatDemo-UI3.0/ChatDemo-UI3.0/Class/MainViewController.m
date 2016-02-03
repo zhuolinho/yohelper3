@@ -915,6 +915,7 @@ static NSString *kGroupName = @"GroupName";
 
 - (void)didReceiveAPIResponseOf:(API *)api data:(NSDictionary *)data {
     [API setInfo:data[@"result"]];
+    NSLog(@"%@", [API getInfo]);
     NSString *avatar = [NSString stringWithFormat:@"%@%@", HOST, [API getInfo][@"avatar"]];
     [API setAvatarByKey:[API getInfo][@"username"] name:avatar];
 }

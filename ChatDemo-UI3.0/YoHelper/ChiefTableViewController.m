@@ -11,8 +11,9 @@
 #import "ConversationListController.h"
 #import "API.h"
 #import "WebViewController.h"
+#import "IBActionSheet.h"
 
-@interface ChiefTableViewController () <APIProtocol, UIActionSheetDelegate> {
+@interface ChiefTableViewController () <APIProtocol, IBActionSheetDelegate> {
     UIScrollView *scrollView;
     API *getCollection;
     NSArray *chiefTeacher;
@@ -207,7 +208,7 @@
                 chatButton.backgroundColor = [UIColor lightGrayColor];
                 chatButton.enabled = NO;
             }
-            [chatButton setTitle:@"免费体验" forState:UIControlStateNormal];
+            [chatButton setTitle:NSLocalizedString(@"yohelper.freechat", @"免费体验") forState:UIControlStateNormal];
             chatButton.layer.cornerRadius = 10;
             chatButton.layer.masksToBounds = YES;
             chatButton.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -218,6 +219,7 @@
             if ([API getPicByKey:savedFile]) {
                 avatarView.image = [API getPicByKey:savedFile];
             } else {
+                avatarView.image = [UIImage imageNamed:@"DefaultAvatar"];
                 NSString *str = [NSString stringWithFormat:@"%@%@", HOST, savedFile];
                 NSURL *url = [NSURL URLWithString:str];
                 NSURLRequest *requst = [NSURLRequest requestWithURL:url];
@@ -243,27 +245,17 @@
 - (void)videoButtonClick:(UIButton *)button {
     WebViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WebViewController"];
     vc.url = res[button.tag][@"personalUrl"];
-    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)shareButtonClick:(UIButton *)button {
     if (chiefTeacher.count == 0) {
         mark = res[button.tag];
-        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:NSLocalizedString(@"yohelper.settitle", "分享到朋友圈可免费设置首席语伴，每月一次") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") destructiveButtonTitle:NSLocalizedString(@"yohelper.wxfrd", @"朋友圈") otherButtonTitles:NSLocalizedString(@"yohelper.wxpay", @"微信支付"), NSLocalizedString(@"yohelper.alipay", @"支付宝支付"), nil];
-//        sheet.title = NSLocalizedString(@"yohelper.settitle", "分享到朋友圈可免费设置首席语伴，每月一次");
+        IBActionSheet *sheet = [[IBActionSheet alloc]initWithTitle:NSLocalizedString(@"yohelper.settitle", "分享到朋友圈可免费设置首席语伴，每月一次") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") destructiveButtonTitle:NSLocalizedString(@"yohelper.wxfrd", @"朋友圈") otherButtonTitles:NSLocalizedString(@"yohelper.wxpay", @"微信支付"), NSLocalizedString(@"yohelper.alipay", @"支付宝支付"), nil];
         sheet.delegate = self;
-//        [sheet addButtonWithTitle:NSLocalizedString(@"yohelper.alipay", @"支付宝支付")];
-//        [sheet addButtonWithTitle:NSLocalizedString(@"yohelper.wxpay", @"微信支付")];
-//        [sheet addButtonWithTitle:NSLocalizedString(@"yohelper.wxfrd", @"朋友圈")];
-//        [sheet addButtonWithTitle:NSLocalizedString(@"cancel", @"Cancel")];
-//        sheet.cancelButtonIndex = 3;
-        [sheet showFromTabBar:self.tabBarController.tabBar];
+        [sheet setButtonTextColor:[UIColor lightGrayColor] forButtonAtIndex:0];
+        [sheet showInView:[UIApplication sharedApplication].keyWindow];
     }
-}
-
-- (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
-    NSLog(@"%lu", (unsigned long)actionSheet.subviews.count);
 }
 
 - (void)chatButtonClick:(UIButton *)button {
@@ -304,7 +296,7 @@
 
 - (void)didReceiveAPIResponseOf:(API *)api data:(NSDictionary *)data {
     if (api == refresh) {
-        NSLog(@"%@", data);
+//        NSLog(@"%@", data);
         res = data[@"result"];
         [self.tableView reloadData];
     } else if (api == getCollection) {
@@ -313,7 +305,7 @@
     }
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)actionSheet:(IBActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSLog(@"%ld", (long)buttonIndex);
 }
 

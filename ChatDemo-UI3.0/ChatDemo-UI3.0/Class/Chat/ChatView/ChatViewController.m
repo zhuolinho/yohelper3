@@ -15,8 +15,9 @@
 #import "UserProfileManager.h"
 #import "ContactListSelectViewController.h"
 #import "API.h"
+#import "IBActionSheet.h"
 
-@interface ChatViewController ()<UIAlertViewDelegate, EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource, UIActionSheetDelegate>
+@interface ChatViewController ()<UIAlertViewDelegate, EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource, IBActionSheetDelegate>
 {
     UIMenuItem *_copyMenuItem;
     UIMenuItem *_deleteMenuItem;
@@ -446,24 +447,14 @@
 }
 
 - (void)shareButtonClick {
-//    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:NSLocalizedString(@"分享到朋友圈可免费设置首席语伴，每月一次", "分享到朋友圈可免费设置首席语伴，每月一次") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"支付宝支付", @"支付宝支付"), NSLocalizedString(@"微信支付", @"微信支付"), NSLocalizedString(@"朋友圈", @"朋友圈"), nil];
-    UIActionSheet *sheet = [[UIActionSheet alloc]init];
-    sheet.title = NSLocalizedString(@"yohelper.settitle", "分享到朋友圈可免费设置首席语伴，每月一次");
+    IBActionSheet *sheet = [[IBActionSheet alloc]initWithTitle:NSLocalizedString(@"yohelper.settitle", "分享到朋友圈可免费设置首席语伴，每月一次") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") destructiveButtonTitle:NSLocalizedString(@"yohelper.wxfrd", @"朋友圈") otherButtonTitles:NSLocalizedString(@"yohelper.wxpay", @"微信支付"), NSLocalizedString(@"yohelper.alipay", @"支付宝支付"), nil];
     sheet.delegate = self;
-    [sheet addButtonWithTitle:NSLocalizedString(@"yohelper.alipay", @"支付宝支付")];
-    [sheet addButtonWithTitle:NSLocalizedString(@"yohelper.wxpay", @"微信支付")];
-    [sheet addButtonWithTitle:NSLocalizedString(@"yohelper.wxfrd", @"朋友圈")];
-    [sheet addButtonWithTitle:NSLocalizedString(@"cancel", @"Cancel")];
-    sheet.cancelButtonIndex = 3;
-    NSLog(@"%lu", (unsigned long)sheet.subviews.count);
-    [sheet showFromTabBar:self.tabBarController.tabBar];
-    NSLog(@"%lu", (unsigned long)sheet.subviews.count);
+    [sheet setButtonTextColor:[UIColor lightGrayColor] forButtonAtIndex:0];
+    [sheet showInView:[UIApplication sharedApplication].keyWindow];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 2 && buttonIndex != actionSheet.cancelButtonIndex) {
-        
-    }
+    NSLog(@"%ld", (long)buttonIndex);
 }
 
 @end

@@ -238,6 +238,8 @@
 "message.toolBar.record.loosenCancel" = " 松开手指，取消发送 ";
 "message.toolBar.record.touch" = "按住说话";
 "message.toolBar.record.send" = "松开发送";
+"DXMessageToolBarDelegate.record" = "hold down to talk";
+"DXMessageToolBarDelegate.send" = "loosen to send";
 
 "message.downloadingAudio" = "正在下载语音，稍后点击";
 "message.downloadingVideo" = "正在获取视频...";
@@ -290,7 +292,6 @@
 "title.chatroomlist" = "聊天室列表";
 "title.robotlist" = "环信助手";
 "title.profile" = "详细资料";
-
 
 //setting
 "setting.autoLogin" = "自动登录";
@@ -387,3 +388,11 @@
 "Iran" = "伊朗";
 "Russia" = "俄罗斯";
 "yohelper.chineseLevel" = "汉语水平：%@";
+"yoheler.viewall" = "查看全文";
+"yohelper.lang" = "语言：%@";
+"yohelper.freechat" = "免费体验";
+"My Collections" = "我的收藏";
+"User Guide" = "使用帮助";
+"Contact Us" = "联系我们";
+"Copyright" = "版权声明";
+"yohelper.setting" = "设置";
