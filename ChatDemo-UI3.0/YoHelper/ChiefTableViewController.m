@@ -252,7 +252,6 @@
     if (chiefTeacher.count == 0) {
         mark = res[button.tag];
         IBActionSheet *sheet = [[IBActionSheet alloc]initWithTitle:NSLocalizedString(@"yohelper.settitle", "分享到朋友圈可免费设置首席语伴，每月一次") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") destructiveButtonTitle:NSLocalizedString(@"yohelper.wxfrd", @"朋友圈") otherButtonTitles:NSLocalizedString(@"yohelper.wxpay", @"微信支付"), NSLocalizedString(@"yohelper.alipay", @"支付宝支付"), nil];
-        sheet.delegate = self;
         [sheet setButtonTextColor:[UIColor lightGrayColor] forButtonAtIndex:0];
         [sheet showInView:[UIApplication sharedApplication].keyWindow];
     }

@@ -8,6 +8,7 @@
 
 #import "MeTableViewController.h"
 #import "API.h"
+#import "WebViewController.h"
 
 @interface MeTableViewController ()
 
@@ -17,7 +18,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -118,6 +118,21 @@
     if (indexPath.section == 0) {
         UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"MyProfileTableViewController"];
         [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        if (indexPath.row == 0) {
+            UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"MyCollectionsViewController"];
+            [self.navigationController pushViewController:vc animated:YES];
+        } else if (indexPath.row == 2) {
+            UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"UserGuideViewController"];
+            [self.navigationController pushViewController:vc animated:YES];
+        } else if (indexPath.row == 3) {
+            WebViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WebViewController"];
+            vc.url = @"http://www.yozaii.com/contact.html";
+            [self.navigationController pushViewController:vc animated:YES];
+        } else if (indexPath.row == 4) {
+            UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CopyrightViewController"];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 

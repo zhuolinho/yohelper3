@@ -19,6 +19,12 @@
 - (void)getMyCollectionTeachers;
 - (void)getTeachersFromJobTag;
 - (void)getTopicNews;
+- (void)setAvatar:(UIImage *)img;
+- (void)setNickname:(NSString *)nickname;
+- (void)setAddress:(NSString *)address;
+- (void)setEmail:(NSString *)email;
+- (void)setPassword:(NSString *)newPass oldPass:(NSString *)oldPass;
+- (void)setGender:(NSString *)gender;
 
 + (UIImage *)getPicByKey:(NSString *)key;
 + (void)setPicByKey:(NSString *)key pic:(UIImage *)pic;

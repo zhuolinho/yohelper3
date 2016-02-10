@@ -106,7 +106,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
         if (self.mainController == nil) {
             UIStoryboard *mainSB = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             self.mainController = [mainSB instantiateInitialViewController];
-            navigationController = [[UINavigationController alloc] initWithRootViewController:self.mainController];
+//            navigationController = [[UINavigationController alloc] initWithRootViewController:self.mainController];
         }else{
             navigationController  = self.mainController.navigationController;
         }
@@ -117,11 +117,11 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     }
     else{//登陆失败加载登陆页面控制器
         self.mainController = nil;
-        
-        LoginViewController *loginController = [[LoginViewController alloc] init];
-        navigationController = [[UINavigationController alloc] initWithRootViewController:loginController];
+        UIViewController *vc = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil]instantiateInitialViewController];
+//        LoginViewController *loginController = [[LoginViewController alloc] init];
+//        navigationController = [[UINavigationController alloc] initWithRootViewController:loginController];
         [self clearParse];
-        self.window.rootViewController = navigationController;
+        self.window.rootViewController = vc;
     }
     
     //设置7.0以下的导航栏

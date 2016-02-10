@@ -41,6 +41,47 @@ static NSDictionary *myInfo;
     [self post:@"getTopicNews.action" dic:nil];
 }
 
+- (void)setAvatar:(UIImage *)img {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *yo_token = [ud objectForKey:@"yo_token"];
+    NSData *imgData = UIImageJPEGRepresentation(img, 1.0);
+    NSData *base64Img = [imgData base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSString *stringImg = [[NSString alloc]initWithData:base64Img encoding:NSUTF8StringEncoding];
+    stringImg = [stringImg stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
+    stringImg = [NSString stringWithFormat:@"data:image/jpeg;base64,%@", stringImg];
+    [self post:@"setAvatar.action" dic:@{@"token": yo_token, @"base64Files": stringImg}];
+}
+
+- (void)setNickname:(NSString *)nickname {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *yo_token = [ud objectForKey:@"yo_token"];
+    [self post:@"setName.action" dic:@{@"token": yo_token, @"nickname": nickname}];
+}
+
+- (void)setAddress:(NSString *)address {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *yo_token = [ud objectForKey:@"yo_token"];
+    [self post:@"setAddress.action" dic:@{@"token": yo_token, @"address": address}];
+}
+
+- (void)setEmail:(NSString *)email {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *yo_token = [ud objectForKey:@"yo_token"];
+    [self post:@"setEmail.action" dic:@{@"token": yo_token, @"email": email}];
+}
+
+- (void)setPassword:(NSString *)newPass oldPass:(NSString *)oldPass {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *yo_token = [ud objectForKey:@"yo_token"];
+    [self post:@"setPassword.action" dic:@{@"token": yo_token, @"newPassword": newPass, @"oldPassword": oldPass}];
+}
+
+- (void)setGender:(NSString *)gender {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *yo_token = [ud objectForKey:@"yo_token"];
+    [self post:@"setGender.action" dic:@{@"token": yo_token, @"gender": gender}];
+}
+
 - (void)post:(NSString *)action dic:(NSDictionary *)dic {
     NSString *str = [NSString stringWithFormat:@"%@/yozaii2/api/%@", HOST, action];
     NSURL *url = [NSURL URLWithString:str];
@@ -63,7 +104,7 @@ static NSDictionary *myInfo;
             if(jsonObject != nil && err == nil){
                 if([jsonObject isKindOfClass:[NSDictionary class]]){
                     NSDictionary *deserializedDictionary = (NSDictionary *)jsonObject;
-                    long errNo = [deserializedDictionary[@"errno"] integerValue];
+                    long errNo = [deserializedDictionary[@"errno"]integerValue];
                     if (errNo == 0) {
                         if (self->_delegate) {
                             [self->_delegate didReceiveAPIResponseOf:self data:deserializedDictionary];
