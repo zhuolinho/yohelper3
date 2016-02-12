@@ -155,8 +155,8 @@
         else{
             model = [[EaseConversationModel alloc] initWithConversation:converstion];
         }
-        
-        if (model) {
+        NSDate *ret = [NSDate dateWithTimeIntervalSince1970:converstion.latestMessage.timestamp / 1000];
+        if (model && ret.timeIntervalSinceNow / 3600 > -12) {
             [self.dataArray addObject:model];
         }
     }

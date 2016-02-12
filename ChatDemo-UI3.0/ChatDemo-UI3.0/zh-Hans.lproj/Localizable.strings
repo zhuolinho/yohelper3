@@ -424,3 +424,17 @@
 "Set Failed" = "设置失败";
 "yohelper.setGender" = "设置性别";
 "You have no collections." = "您还没有任何收藏";
+"new password has been sent to your phone" = "新的密码已经发到你的手机";
+"Back to login" = "返回登录";
+"Phone number doesn't exit" = "号码不存在";
+"Wrong format" = "手机号格式不对";
+"Please verify phone number" = "请验证手机号";
+"Sent" = "已发送";
+"Send Failed" = "发送失败";
+"Phone number repeated" = "手机号重复";
+"password should be same" = "两次密码输入不一致";
+"yohelper.isNotAscii" = "用户名只能包含字母和数字";
+"yohelper.wrongUser" = "该用户名无法使用";
+"yohelper.login" = "正在登录";
+"yohelper.logout" = "退出登录";
+"yohelper.micSetting" = "如果你要关闭或开启外语帮手的麦克风，请在iPhone的“设置”功能中，找到应用程序“外语帮手”更改。";

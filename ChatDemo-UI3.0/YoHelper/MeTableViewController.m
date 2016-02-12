@@ -9,6 +9,7 @@
 #import "MeTableViewController.h"
 #import "API.h"
 #import "WebViewController.h"
+#import "PushNotificationViewController.h"
 
 @interface MeTableViewController ()
 
@@ -132,6 +133,10 @@
         } else if (indexPath.row == 4) {
             UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"CopyrightViewController"];
             [self.navigationController pushViewController:vc animated:YES];
+        } else if (indexPath.row == 1) {
+            PushNotificationViewController *pushController = [[PushNotificationViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            pushController.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:pushController animated:YES];
         }
     }
 }

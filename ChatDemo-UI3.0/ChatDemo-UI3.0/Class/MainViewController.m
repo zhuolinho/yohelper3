@@ -212,7 +212,10 @@ static NSString *kGroupName = @"GroupName";
     NSArray *conversations = [[[EaseMob sharedInstance] chatManager] conversations];
     NSInteger unreadCount = 0;
     for (EMConversation *conversation in conversations) {
-        unreadCount += conversation.unreadMessagesCount;
+        NSDate *ret = [NSDate dateWithTimeIntervalSince1970:conversation.latestMessage.timestamp / 1000];
+        if (ret.timeIntervalSinceNow / 3600 > -12) {
+            unreadCount += conversation.unreadMessagesCount;
+        }
     }
     if (_chatListVC) {
         if (unreadCount > 0) {
@@ -224,6 +227,7 @@ static NSString *kGroupName = @"GroupName";
     
     UIApplication *application = [UIApplication sharedApplication];
     [application setApplicationIconBadgeNumber:unreadCount];
+    [_delegat unreadPass:unreadCount];
 }
 
 - (void)setupUntreatedApplyCount

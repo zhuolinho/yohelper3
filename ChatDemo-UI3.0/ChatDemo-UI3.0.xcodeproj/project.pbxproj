@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06074BE51C6CE1FE00C5D149 /* DiscoverTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06074BE41C6CE1FE00C5D149 /* DiscoverTableViewController.m */; };
 		0625D2E41C5717B600DB81E9 /* IBActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0625D2E31C5717B600DB81E9 /* IBActionSheet.m */; };
+		062BD0A51C6D8E5000E12568 /* BuyGiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 062BD0A41C6D8E5000E12568 /* BuyGiftViewController.m */; };
 		062DDA581C2FB4F400908998 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 062DDA531C2FB4F400908998 /* libWeChatSDK.a */; };
 		062DDA591C2FB4F400908998 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 062DDA541C2FB4F400908998 /* read_me.txt */; };
 		062DDAC41C2FBF0E00908998 /* AlipayRequestConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 062DDA5E1C2FBF0E00908998 /* AlipayRequestConfig.m */; };
@@ -46,7 +48,6 @@
 		06D0AC4F1C60603E0028B2F5 /* MeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D0AC4E1C60603E0028B2F5 /* MeTableViewController.m */; };
 		06D0AC521C6061610028B2F5 /* MyProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D0AC511C6061610028B2F5 /* MyProfileTableViewController.m */; };
 		283403091A9EBB8200B7DE9B /* GroupSubjectChangingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283403081A9EBB8200B7DE9B /* GroupSubjectChangingViewController.m */; };
-		28BB9D1C1B2AFB2900AB7BA2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 28BB9D1B1B2AFB2900AB7BA2 /* Settings.bundle */; };
 		28BFD6361B01D40500D0ADEC /* ChatroomDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFD6311B01D40500D0ADEC /* ChatroomDetailViewController.m */; };
 		28BFD6371B01D40500D0ADEC /* ChatroomListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFD6331B01D40500D0ADEC /* ChatroomListViewController.m */; };
 		28BFD6381B01D40500D0ADEC /* MyChatroomListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFD6351B01D40500D0ADEC /* MyChatroomListViewController.m */; };
@@ -338,8 +339,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		06074BE31C6CE1FE00C5D149 /* DiscoverTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverTableViewController.h; sourceTree = "<group>"; };
+		06074BE41C6CE1FE00C5D149 /* DiscoverTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverTableViewController.m; sourceTree = "<group>"; };
 		0625D2E21C5717B600DB81E9 /* IBActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBActionSheet.h; sourceTree = "<group>"; };
 		0625D2E31C5717B600DB81E9 /* IBActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBActionSheet.m; sourceTree = "<group>"; };
+		062BD0A31C6D8E5000E12568 /* BuyGiftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyGiftViewController.h; sourceTree = "<group>"; };
+		062BD0A41C6D8E5000E12568 /* BuyGiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyGiftViewController.m; sourceTree = "<group>"; };
 		062DDA531C2FB4F400908998 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		062DDA541C2FB4F400908998 /* read_me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = read_me.txt; sourceTree = "<group>"; };
 		062DDA551C2FB4F400908998 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
@@ -486,7 +491,6 @@
 		06D0AC511C6061610028B2F5 /* MyProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyProfileTableViewController.m; sourceTree = "<group>"; };
 		283403071A9EBB8200B7DE9B /* GroupSubjectChangingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSubjectChangingViewController.h; sourceTree = "<group>"; };
 		283403081A9EBB8200B7DE9B /* GroupSubjectChangingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupSubjectChangingViewController.m; sourceTree = "<group>"; };
-		28BB9D1B1B2AFB2900AB7BA2 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		28BFD6301B01D40500D0ADEC /* ChatroomDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatroomDetailViewController.h; sourceTree = "<group>"; };
 		28BFD6311B01D40500D0ADEC /* ChatroomDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatroomDetailViewController.m; sourceTree = "<group>"; };
 		28BFD6321B01D40500D0ADEC /* ChatroomListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatroomListViewController.h; sourceTree = "<group>"; };
@@ -1299,6 +1303,10 @@
 				0684653B1C31AFE200062B0E /* API.h */,
 				0684653C1C31AFE200062B0E /* API.m */,
 				064F140D1C3949E500CB8E61 /* Main.storyboard */,
+				062BD0A31C6D8E5000E12568 /* BuyGiftViewController.h */,
+				062BD0A41C6D8E5000E12568 /* BuyGiftViewController.m */,
+				06074BE31C6CE1FE00C5D149 /* DiscoverTableViewController.h */,
+				06074BE41C6CE1FE00C5D149 /* DiscoverTableViewController.m */,
 				0695EB2C1C6A4AE700AE29AF /* CopyrightViewController.h */,
 				0695EB2D1C6A4AE700AE29AF /* CopyrightViewController.m */,
 				0695EB261C6A2B6E00AE29AF /* MyCollectionsViewController.h */,
@@ -1592,7 +1600,6 @@
 				D24A4A9C1BCE4B830007BB00 /* ChatDemo-UI3.0-Prefix.pch */,
 				90911133192EEC59008A48AA /* ChatDemoUIDefine.h */,
 				3C3D2D1E1A6E5A760099EF88 /* Localizable.strings */,
-				28BB9D1B1B2AFB2900AB7BA2 /* Settings.bundle */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2827,7 +2834,6 @@
 				EBD2AB451A7CDAC000D16528 /* chatBar_more_cardSelected.png in Resources */,
 				EBD2AB361A7CDAC000D16528 /* VoiceSearchFeedback019@2x.png in Resources */,
 				EBD2AB3A1A7CDAC000D16528 /* call_out@2x.png in Resources */,
-				28BB9D1C1B2AFB2900AB7BA2 /* Settings.bundle in Resources */,
 				EBD2AB571A7CDAC000D16528 /* imageDownloadFail@2x.png in Resources */,
 				EBD2AB931A7CDAC000D16528 /* chat_sender_audio_playing_001@2x.png in Resources */,
 				EBD2AB391A7CDAC000D16528 /* call_out.png in Resources */,
@@ -2910,6 +2916,7 @@
 				D2BDA9D41BE226FC00EEAA6C /* FixFopen.c in Sources */,
 				905326B519333E8E00F064D7 /* TTGlobalUICommon.m in Sources */,
 				90011F921AE4BF090088D549 /* EMAlertView.m in Sources */,
+				06074BE51C6CE1FE00C5D149 /* DiscoverTableViewController.m in Sources */,
 				90B42A371B65E62C00968342 /* RobotChatViewController.m in Sources */,
 				D2B61E331BC7BEA6007CB53E /* ConversationListController.m in Sources */,
 				065F14A61C3A271300724FDC /* ChiefTableViewController.m in Sources */,
@@ -2961,6 +2968,7 @@
 				D2B61E361BC7C76B007CB53E /* ContactListViewController.m in Sources */,
 				06D0AC521C6061610028B2F5 /* MyProfileTableViewController.m in Sources */,
 				D2B61E2E1BC7A9B3007CB53E /* EMGifImage.m in Sources */,
+				062BD0A51C6D8E5000E12568 /* BuyGiftViewController.m in Sources */,
 				90517D6A1A5C3DB0008F1315 /* AppDelegate+UMeng.m in Sources */,
 				3C2923B11988E13300DCCD40 /* BlackListViewController.m in Sources */,
 				06D0AC4F1C60603E0028B2F5 /* MeTableViewController.m in Sources */,

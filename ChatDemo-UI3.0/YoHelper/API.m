@@ -82,6 +82,63 @@ static NSDictionary *myInfo;
     [self post:@"setGender.action" dic:@{@"token": yo_token, @"gender": gender}];
 }
 
+- (void)findPassword:(NSString *)phone {
+    [self post:@"findPassword.action" dic:@{@"phone": phone}];
+}
+
+- (void)sendAuthCode:(NSString *)phone {
+    [self post:@"resendAuthcode.action" dic:@{@"phone": phone}];
+}
+
+- (void)checkAuthCode:(NSString *)phone authCode:(NSString *)authCode {
+    [self post:@"checkAuthcode.action" dic:@{@"phone": phone, @"auth_code": authCode}];
+}
+
+- (void)registerAction:(NSString *)username phone:(NSString *)phone password:(NSString *)password authCode:(NSString *)authCode {
+    [self post:@"register.action" dic:@{@"username": username, @"phone": phone, @"password": password, @"type": @"0", @"identification": @"0", @"code": authCode}];
+    
+}
+
+- (void)authForWeixin:(NSString *)weixin avatarURL:(NSString *)avatarURL nickname:(NSString *)nickname gender:(NSString *)gender {
+    [self post:@"authForWeixin.action" dic:@{@"weixin": weixin, @"avatarURL": avatarURL, @"nickname": nickname, @"gender": gender}];
+}
+
+- (void)getMyVouchers {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *yo_token = [ud objectForKey:@"yo_token"];
+    [self post:@"getMyVouchers.action" dic:@{@"token": yo_token}];
+}
+
+- (void)getTreasures {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *yo_token = [ud objectForKey:@"yo_token"];
+    [self post:@"getTreasures.action" dic:@{@"token": yo_token}];
+}
+
+- (void)buyTreasure:(NSString *)tid addressee:(NSString *)addressee phone:(NSString *)phone address:(NSString *)address {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *yo_token = [ud objectForKey:@"yo_token"];
+    [self post:@"buyTreasure.action" dic:@{@"token": yo_token, @"tid": tid, @"addressee": addressee, @"phone": phone, @"address": address}];
+}
+
+- (void)addLotteryValueWithInviteCode:(NSString *)inviteCode {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *yo_token = [ud objectForKey:@"yo_token"];
+    [self post:@"addLotteryValueWithInviteCode.action" dic:@{@"token": yo_token, @"inviteCode": inviteCode}];
+}
+
+- (void)addPhoneWithVerification:(NSString *)phone verifyCode:(NSString *)verifyCode {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *yo_token = [ud objectForKey:@"yo_token"];
+    [self post:@"addPhoneWithVerification.action" dic:@{@"token": yo_token, @"phone": phone, @"verifyCode": verifyCode}];
+}
+
+- (void)addLotteryRecord {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *yo_token = [ud objectForKey:@"yo_token"];
+    [self post:@"addLotteryRecord.action" dic:@{@"token": yo_token}];
+}
+
 - (void)post:(NSString *)action dic:(NSDictionary *)dic {
     NSString *str = [NSString stringWithFormat:@"%@/yozaii2/api/%@", HOST, action];
     NSURL *url = [NSURL URLWithString:str];

@@ -64,7 +64,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="用户名/手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ruz-83-xkK">
                                         <rect key="frame" x="48" y="3" width="202" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -88,6 +88,9 @@
                                 <state key="normal" title="微信登录" backgroundImage="button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="doRegister:" destination="s0j-An-yHu" eventType="touchUpInside" id="1Gh-Vo-SND"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tz3-6F-rXy">
                                 <rect key="frame" x="373" y="322" width="56" height="29"/>
@@ -119,6 +122,7 @@
                     <connections>
                         <outlet property="loginButton" destination="oEa-B8-0ul" id="6GN-WT-XA1"/>
                         <outlet property="passwordTextField" destination="A1n-x1-cE5" id="3tg-x0-56f"/>
+                        <outlet property="registerButton" destination="hju-yP-3k7" id="xad-O5-j83"/>
                         <outlet property="usernameTextField" destination="Ruz-83-xkK" id="5XH-46-sCi"/>
                     </connections>
                 </viewController>
@@ -184,11 +188,17 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="codeButtonClick:" destination="1J6-vl-agN" eventType="touchUpInside" id="Os8-Pk-mtA"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tql-ag-zlG">
                                         <rect key="frame" x="8" y="3" width="172" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <connections>
+                                            <action selector="codeEditingChanged:" destination="1J6-vl-agN" eventType="editingChanged" id="mxa-gL-Xlf"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -221,8 +231,10 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="codeButton" destination="5cF-V3-E9K" id="hLx-e9-pTF"/>
                         <outlet property="codeTF" destination="Tql-ag-zlG" id="xem-7U-aaK"/>
                         <outlet property="mobileTF" destination="znj-5R-X0l" id="Nea-d7-235"/>
+                        <outlet property="nextButton" destination="ASX-Z7-duO" id="Ytc-3q-eQm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NNx-8Y-gAV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -274,7 +286,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="用户名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TB5-os-ZbZ">
                                         <rect key="frame" x="8" y="3" width="242" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -288,7 +300,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nkE-6f-vDY">
                                         <rect key="frame" x="8" y="3" width="242" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -302,7 +314,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="确认密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cTA-yZ-1J1">
                                         <rect key="frame" x="8" y="3" width="242" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -356,7 +368,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ymA-pC-iJa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2112" y="397"/>
+            <point key="canvasLocation" x="1371" y="1113"/>
         </scene>
         <!--Terms View Controller-->
         <scene sceneID="nZZ-bt-hwb">
@@ -399,7 +411,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CQ1-12-T2t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2922" y="397"/>
+            <point key="canvasLocation" x="2185" y="1113"/>
         </scene>
         <!--Find Password View Controller-->
         <scene sceneID="KJD-i9-ako">
@@ -450,6 +462,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="findButtonClick:" destination="tbd-mc-RPI" eventType="touchUpInside" id="8NQ-Rh-sZ0"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -464,6 +479,10 @@
                             <constraint firstItem="rhK-Tu-u8u" firstAttribute="leading" secondItem="Zzx-ab-AxS" secondAttribute="leadingMargin" constant="-20" id="y4n-fc-JFF"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="findButton" destination="Yjx-VB-g42" id="GV6-DD-lj1"/>
+                        <outlet property="mobileTF" destination="Zez-fB-NWg" id="TOA-PX-DhR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="krs-kb-N1A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

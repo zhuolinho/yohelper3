@@ -10,7 +10,10 @@
 #import "EMError.h"
 #import "API.h"
 
-@interface RegisterViewController () <IChatManagerDelegate, UITextFieldDelegate, APIProtocol>
+@interface RegisterViewController () <IChatManagerDelegate, UITextFieldDelegate, APIProtocol> {
+    NSMutableDictionary *isLetterOrNumberDic;
+    API *myAPI;
+}
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -34,9 +37,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    myAPI = [[API alloc]init];
+    myAPI.delegate = self;
     [self setupForDismissKeyboard];
     _usernameTextField.delegate = self;
     _passwordTextField.delegate = self;
+    _registerButton.layer.cornerRadius = 3;
+    _registerButton.layer.masksToBounds = YES;
+    NSArray *isLetterOrNumber = @[@"a", @"b", @"c", @"d", @"e", @"f", @"g", @"h", @"i", @"j", @"k", @"l", @"m", @"n", @"o", @"p", @"q", @"r", @"s", @"t", @"u", @"v", @"w", @"x", @"y", @"z", @"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9"];
+    isLetterOrNumberDic = [[NSMutableDictionary alloc]init];
+    for (NSString *c in isLetterOrNumber) {
+        isLetterOrNumberDic[c] = @"";
+    }
     // Do any additional setup after loading the view.
 }
 
@@ -47,50 +59,32 @@
 
 - (IBAction)doRegister:(id)sender {
     if (![self isEmpty]) {
+        if (_passwordTextField.text.length < 6) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"passwored should be more than 6 digits", @"密码需要至少6位") message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+        if (![_passwordTextField.text isEqualToString:_confirmTextField.text]) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"password should be same", @"两次密码输入不一致") message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
         //隐藏键盘
         [self.view endEditing:YES];
         //判断是否是中文，但不支持中英文混编
-        if ([self.usernameTextField.text isChinese]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"login.nameNotSupportZh", @"Name does not support Chinese")
+        if ([self checkUsernameValid:self.usernameTextField.text]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"yohelper.isNotAscii", @"用户名只能包含字母和数字")
                                                             message:nil
                                                            delegate:nil
                                                   cancelButtonTitle:NSLocalizedString(@"ok", @"OK")
                                                   otherButtonTitles:nil];
             
             [alert show];
-            
             return;
         }
         [self showHudInView:self.view hint:NSLocalizedString(@"register.ongoing", @"Is to register...")];
+        [myAPI registerAction:_usernameTextField.text phone:_mobile password:_passwordTextField.text authCode:_code];
         //异步注册账号
-        [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:_usernameTextField.text
-                                                             password:_passwordTextField.text
-                                                       withCompletion:
-         ^(NSString *username, NSString *password, EMError *error) {
-             [self hideHud];
-             
-             if (!error) {
-                 TTAlertNoTitle(NSLocalizedString(@"register.success", @"Registered successfully, please log in"));
-             }else{
-                 switch (error.errorCode) {
-                     case EMErrorServerNotReachable:
-                         TTAlertNoTitle(NSLocalizedString(@"error.connectServerFail", @"Connect to the server failed!"));
-                         break;
-                     case EMErrorServerDuplicatedAccount:
-                         TTAlertNoTitle(NSLocalizedString(@"register.repeat", @"You registered user already exists!"));
-                         break;
-                     case EMErrorNetworkNotConnected:
-                         TTAlertNoTitle(NSLocalizedString(@"error.connectNetworkFail", @"No network connection!"));
-                         break;
-                     case EMErrorServerTimeout:
-                         TTAlertNoTitle(NSLocalizedString(@"error.connectServerTimeout", @"Connect to the server timed out!"));
-                         break;
-                     default:
-                         TTAlertNoTitle(NSLocalizedString(@"register.fail", @"Registration failed"));
-                         break;
-                 }
-             }
-         } onQueue:nil];
     }
 }
 
@@ -110,14 +104,6 @@
     return ret;
 }
 
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    if (textField == _usernameTextField) {
-        _passwordTextField.text = @"";
-    }
-    
-    return YES;
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if (textField == _usernameTextField) {
@@ -125,26 +111,35 @@
         [_passwordTextField becomeFirstResponder];
     } else if (textField == _passwordTextField) {
         [_passwordTextField resignFirstResponder];
-        [_confirmTextField resignFirstResponder];
+        [_confirmTextField becomeFirstResponder];
     }
     return YES;
 }
 
 - (void)didReceiveAPIErrorOf:(API *)api data:(long)errorNo {
+    [self hideHud];
     TTAlertNoTitle(NSLocalizedString(@"error.connectServerFail", @"Connect to the server failed!"));
 }
 
 - (void)didReceiveAPIResponseOf:(API *)api data:(NSDictionary *)data {
-    NSDictionary *res = data[@"result"];
-    if (![res[@"token"] isEqual: @"wrong"]) {
+//    NSDictionary *res = data[@"result"];
+//    if (![res[@"token"] isEqual: @"wrong"]) {
+    
+//        [self loginWithUsername:res[@"username"] password:@"123456"];
+//    }
+//    else {
+//        TTAlertNoTitle(NSLocalizedString(@"AuthenticationFailure", @"User name or password is incorrect."));
+//    }
+    NSLog(@"%@", data);
+    if ([data[@"result"]isEqualToString:@"repeated"] || [data[@"result"]isEqualToString:@"huanxin_repeated"]) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"yohelper.wrongUser", @"该用户名无法使用") message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil];
+        [alert show];
+        [self hideHud];
+    } else {
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-        [ud setObject:res[@"token"] forKey:@"yo_token"];
+        [ud setObject:data[@"result"] forKey:@"yo_token"];
         [ud synchronize];
-        NSLog(@"%@",res[@"token"]);
-        [self loginWithUsername:res[@"username"] password:@"123456"];
-    }
-    else {
-        TTAlertNoTitle(NSLocalizedString(@"AuthenticationFailure", @"User name or password is incorrect."));
+        [self loginWithUsername:_usernameTextField.text password:@"123456"];
     }
 }
 
@@ -210,6 +205,16 @@
         [ud setObject:username forKey:[NSString stringWithFormat:@"em_lastLogin_%@",kSDKUsername]];
         [ud synchronize];
     }
+}
+
+- (BOOL)checkUsernameValid:(NSString *)name {
+    for (int i = 0; i < name.length; i++) {
+        NSString *str = [NSString stringWithFormat:@"%c", [name characterAtIndex:i]];
+        if (!isLetterOrNumberDic[str]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 /*

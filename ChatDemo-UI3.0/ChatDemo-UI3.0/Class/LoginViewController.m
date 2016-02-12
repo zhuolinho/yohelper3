@@ -12,10 +12,10 @@
 
 #import "LoginViewController.h"
 #import "EMError.h"
-
 #import "API.h"
+#import "AppDelegate.h"
 
-@interface LoginViewController ()<IChatManagerDelegate,UITextFieldDelegate,APIProtocol>
+@interface LoginViewController ()<IChatManagerDelegate,UITextFieldDelegate,APIProtocol,AlipayDelegate,WXApiDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -60,7 +60,12 @@
     
     [_useIpSwitch setOn:[[EaseMob sharedInstance].chatManager isUseIp] animated:YES];
     
-    self.title = NSLocalizedString(@"AppName", @"YoHelper");
+    _loginButton.layer.cornerRadius = 3;
+    _loginButton.layer.masksToBounds = YES;
+    _registerButton.layer.cornerRadius = 3;
+    _registerButton.layer.masksToBounds = YES;
+    _registerButton.hidden = ![WXApi isWXAppInstalled];
+    ((AppDelegate *)[UIApplication sharedApplication].delegate).payVC = self;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -77,52 +82,10 @@
 
 //注册账号
 - (IBAction)doRegister:(id)sender {
-    if (![self isEmpty]) {
-        //隐藏键盘
-        [self.view endEditing:YES];
-        //判断是否是中文，但不支持中英文混编
-        if ([self.usernameTextField.text isChinese]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"login.nameNotSupportZh", @"Name does not support Chinese")
-                                  message:nil
-                                  delegate:nil
-                                  cancelButtonTitle:NSLocalizedString(@"ok", @"OK")
-                                  otherButtonTitles:nil];
-            
-            [alert show];
-            
-            return;
-        }
-        [self showHudInView:self.view hint:NSLocalizedString(@"register.ongoing", @"Is to register...")];
-        //异步注册账号
-        [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:_usernameTextField.text
-                                                             password:_passwordTextField.text
-                                                       withCompletion:
-         ^(NSString *username, NSString *password, EMError *error) {
-             [self hideHud];
-             
-             if (!error) {
-                 TTAlertNoTitle(NSLocalizedString(@"register.success", @"Registered successfully, please log in"));
-             }else{
-                 switch (error.errorCode) {
-                     case EMErrorServerNotReachable:
-                         TTAlertNoTitle(NSLocalizedString(@"error.connectServerFail", @"Connect to the server failed!"));
-                         break;
-                     case EMErrorServerDuplicatedAccount:
-                         TTAlertNoTitle(NSLocalizedString(@"register.repeat", @"You registered user already exists!"));
-                         break;
-                     case EMErrorNetworkNotConnected:
-                         TTAlertNoTitle(NSLocalizedString(@"error.connectNetworkFail", @"No network connection!"));
-                         break;
-                     case EMErrorServerTimeout:
-                         TTAlertNoTitle(NSLocalizedString(@"error.connectServerTimeout", @"Connect to the server timed out!"));
-                         break;
-                     default:
-                         TTAlertNoTitle(NSLocalizedString(@"register.fail", @"Registration failed"));
-                         break;
-                 }
-             }
-         } onQueue:nil];
-    }
+    SendAuthReq* req = [[SendAuthReq alloc]init];
+    req.scope = @"snsapi_userinfo";
+    req.state = @"123";
+    [WXApi sendReq:req];
 }
 
 //点击登陆后的操作
@@ -212,22 +175,10 @@
             
             return;
         }
+        [self showHudInView:self.view hint:NSLocalizedString(@"yohelper.login", @"正在登录")];
         API *myAPI = [[API alloc]init];
         myAPI.delegate = self;
         [myAPI login:_usernameTextField.text password:_passwordTextField.text];
-        /*
-#if !TARGET_IPHONE_SIMULATOR
-        //弹出提示
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"login.inputApnsNickname", @"Please enter nickname for apns") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") otherButtonTitles:NSLocalizedString(@"ok", @"OK"), nil];
-        [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-        UITextField *nameTextField = [alert textFieldAtIndex:0];
-        nameTextField.text = self.usernameTextField.text;
-        [alert show];
-#elif TARGET_IPHONE_SIMULATOR
-        [self loginWithUsername:_usernameTextField.text password:_passwordTextField.text];
-#endif
-         */
-//        [self loginWithUsername:_usernameTextField.text password:_passwordTextField.text];
     }
 }
 
@@ -300,9 +251,11 @@
 
 - (void)didReceiveAPIErrorOf:(API *)api data:(long)errorNo {
     TTAlertNoTitle(NSLocalizedString(@"error.connectServerFail", @"Connect to the server failed!"));
+    [self hideHud];
 }
 
 - (void)didReceiveAPIResponseOf:(API *)api data:(NSDictionary *)data {
+    [self hideHud];
     NSDictionary *res = data[@"result"];
     if (![res[@"token"] isEqual: @"wrong"]) {
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
@@ -314,6 +267,59 @@
     else {
         TTAlertNoTitle(NSLocalizedString(@"AuthenticationFailure", @"User name or password is incorrect."));
     }
+}
+
+- (void)AlipayRequestBack:(NSDictionary *)result {
+    NSLog(@"%@", result);
+}
+
+- (void)onResp:(BaseResp *)resp {
+    if ([resp isKindOfClass:[SendAuthResp class]] && resp.errCode == 0) {
+        [self getAccessToken:((SendAuthResp *)resp).code];
+    }
+}
+
+-(void)getAccessToken:(NSString *)code
+{
+    NSString *url =[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxf31f0d65d051d083&secret=2ab6d5c204590c57e5dadd569bae9613&code=%@&grant_type=authorization_code", code];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *zoneUrl = [NSURL URLWithString:url];
+        NSString *zoneStr = [NSString stringWithContentsOfURL:zoneUrl encoding:NSUTF8StringEncoding error:nil];
+        NSData *data = [zoneStr dataUsingEncoding:NSUTF8StringEncoding];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (data) {
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                [self getUserInfo:dic[@"access_token"] openid:dic[@"openid"]];
+            }
+        });
+    });
+}
+
+-(void)getUserInfo:(NSString *)accessToken openid:(NSString *)openid
+{
+    NSString *url =[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@",accessToken ,openid];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *zoneUrl = [NSURL URLWithString:url];
+        NSString *zoneStr = [NSString stringWithContentsOfURL:zoneUrl encoding:NSUTF8StringEncoding error:nil];
+        NSData *data = [zoneStr dataUsingEncoding:NSUTF8StringEncoding];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (data) {
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                NSLog(@"%@", dic);
+                NSString *gender = @"N";
+                if ([dic[@"sex"]integerValue] == 1) {
+                    gender = @"M";
+                } else if ([dic[@"sex"]integerValue] == 2) {
+                    gender = @"F";
+                }
+                API *myAPI = [[API alloc]init];
+                myAPI.delegate = self;
+                NSString *headimgurl = dic[@"headimgurl"];
+                [self showHudInView:self.view hint:NSLocalizedString(@"yohelper.login", @"正在登录")];
+                [myAPI authForWeixin:dic[@"openid"] avatarURL:[NSString stringWithFormat:@"%@132", [headimgurl substringToIndex:headimgurl.length - 1]] nickname:dic[@"nickname"] gender:gender];
+            }
+        });
+    });
 }
 
 @end

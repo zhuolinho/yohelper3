@@ -12,8 +12,10 @@
 #import "API.h"
 #import "WebViewController.h"
 #import "IBActionSheet.h"
+#import "AppDelegate.h"
+#import "MainViewController.h"
 
-@interface ChiefTableViewController () <APIProtocol, IBActionSheetDelegate> {
+@interface ChiefTableViewController () <APIProtocol, IBActionSheetDelegate, UnreadCountDelegate> {
     UIScrollView *scrollView;
     API *getCollection;
     NSArray *chiefTeacher;
@@ -21,6 +23,8 @@
     API *operation;
     NSArray *res;
     NSDictionary *mark;
+    UILabel *lab;
+    NSInteger unread;
 }
 
 @end
@@ -36,6 +40,12 @@
     refresh.delegate = self;
     operation = [[API alloc]init];
     operation.delegate = self;
+    ((AppDelegate *)[UIApplication sharedApplication].delegate).mainController.delegat = self;
+    lab = [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 20, 10, 10, 10)];
+    lab.backgroundColor = [UIColor redColor];
+    [self.navigationController.navigationBar addSubview:lab];
+    lab.layer.cornerRadius = 5;
+    lab.layer.masksToBounds = YES;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -52,6 +62,20 @@
     [super viewWillAppear:animated];
     [getCollection getMyCollectionTeachers];
     [refresh getTeachersFromJobTag];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (unread == 0) {
+        lab.hidden = YES;
+    } else {
+        lab.hidden = NO;
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    lab.hidden = YES;
 }
 
 #pragma mark - Table view data source
@@ -320,6 +344,18 @@
     ConversationListController *chatList = [[ConversationListController alloc] initWithNibName:nil bundle:nil];
     chatList.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chatList animated:YES];
+}
+
+- (void)unreadPass:(NSInteger)unreadCount {
+    unread = unreadCount;
+    NSArray *arr = self.navigationController.viewControllers;
+    if ([arr objectAtIndex:arr.count - 1] == self) {
+        if (unread == 0) {
+            lab.hidden = YES;
+        } else {
+            lab.hidden = NO;
+        }
+    }
 }
 
 /*

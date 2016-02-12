@@ -43,12 +43,9 @@
 {
     [super viewDidLoad];
     
-    self.title = NSLocalizedString(@"title.apnsSetting", @"Apns Settings");
+    self.title = NSLocalizedString(@"yohelper.setting", @"设置");
     
-    UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 40)];
-    [saveButton setTitle:NSLocalizedString(@"save", @"Save") forState:UIControlStateNormal];
-    [saveButton addTarget:self action:@selector(savePushOptions) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:saveButton];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(savePushOptions)];
     
     self.tableView.tableFooterView = [[UIView alloc] init];
     
@@ -114,6 +111,13 @@
     return nil;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section 
+{
+    if (section == 1) {
+        return NSLocalizedString(@"yohelper.micSetting", @"如果你要关闭或开启外语帮手的麦克风，请在iPhone的“设置”功能中，找到应用程序“外语帮手”更改。");
+    }
+    return  @"";
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

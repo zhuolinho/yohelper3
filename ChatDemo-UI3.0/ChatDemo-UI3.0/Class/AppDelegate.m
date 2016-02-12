@@ -78,4 +78,23 @@ didFinishLaunchingWithOptions:launchOptions
         [_mainController didReceiveLocalNotification:notification];
     }
 }
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [WXApi handleOpenURL:url delegate:_payVC];
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(nonnull NSURL *)url sourceApplication:(nullable NSString *)sourceApplication annotation:(nonnull id)annotation {
+    if ([url.host isEqualToString:@"safepay"]) {
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            [self.payVC AlipayRequestBack:resultDic];
+        }];
+    }
+    if ([url.host isEqualToString:@"platformapi"]){//支付宝钱包快登授权返回authCode
+        [[AlipaySDK defaultService] processAuthResult:url standbyCallback:^(NSDictionary *resultDic) {
+            [self.payVC AlipayRequestBack:resultDic];
+        }];
+    }
+    return  [WXApi handleOpenURL:url delegate:_payVC];
+}
+
 @end

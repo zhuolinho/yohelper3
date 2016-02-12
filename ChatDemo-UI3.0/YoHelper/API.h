@@ -25,6 +25,17 @@
 - (void)setEmail:(NSString *)email;
 - (void)setPassword:(NSString *)newPass oldPass:(NSString *)oldPass;
 - (void)setGender:(NSString *)gender;
+- (void)findPassword:(NSString *)phone;
+- (void)sendAuthCode:(NSString *)phone;
+- (void)checkAuthCode:(NSString *)phone authCode:(NSString *)authCode;
+- (void)registerAction:(NSString *)username phone:(NSString *)phone password:(NSString *)password authCode:(NSString *)authCode;
+- (void)authForWeixin:(NSString *)weixin avatarURL:(NSString *)avatarURL nickname:(NSString *)nickname gender:(NSString *)gender;
+- (void)getMyVouchers;
+- (void)getTreasures;
+- (void)buyTreasure:(NSString *)tid addressee:(NSString *)addressee phone:(NSString *)phone address:(NSString *)address;
+- (void)addLotteryValueWithInviteCode:(NSString *)inviteCode;
+- (void)addPhoneWithVerification:(NSString *)phone verifyCode:(NSString *)verifyCode;
+- (void)addLotteryRecord;
 
 + (UIImage *)getPicByKey:(NSString *)key;
 + (void)setPicByKey:(NSString *)key pic:(UIImage *)pic;

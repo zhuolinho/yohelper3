@@ -13,6 +13,14 @@
 #import <UIKit/UIKit.h>
 #import "MainViewController.h"
 #import "ApplyViewController.h"
+#import "WXApi.h"
+#import <AlipaySDK/AlipaySDK.h>
+
+@protocol AlipayDelegate <NSObject>
+
+- (void)AlipayRequestBack:(NSDictionary *)result;
+
+@end
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, IChatManagerDelegate>
 {
@@ -21,5 +29,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) MainViewController *mainController;
+@property id<AlipayDelegate, WXApiDelegate> payVC;
 
 @end

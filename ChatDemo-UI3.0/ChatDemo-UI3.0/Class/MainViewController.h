@@ -12,10 +12,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol UnreadCountDelegate <NSObject>
+
+- (void)unreadPass:(NSInteger)unreadCount;
+
+@end
+
 @interface MainViewController : UITabBarController
 {
     EMConnectionState _connectionState;
 }
+
+@property id<UnreadCountDelegate> delegat;
 
 - (void)jumpToChatList;
 

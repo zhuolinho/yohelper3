@@ -12,6 +12,7 @@
 #import "ChangeTextViewController.h"
 #import "ChangePasswordViewController.h"
 #import "ChangeGenderViewController.h"
+#import "ApplyViewController.h"
 
 @interface MyProfileTableViewController () <APIProtocol, IBActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
     API *myAPI;
@@ -38,6 +39,14 @@
     activity.center = CGPointMake(self.view.bounds.size.width / 2, self.view.bounds.size.height / 2);
     activity.hidesWhenStopped = YES;
     [imagePicker.view addSubview:activity];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
+    UIButton *logoutButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, self.view.frame.size.width - 20, 45)];
+    logoutButton.layer.cornerRadius = 5;
+    logoutButton.layer.masksToBounds = YES;
+    logoutButton.backgroundColor = THEMECOLOR;
+    [logoutButton setTitle:NSLocalizedString(@"yohelper.logout", @"退出登录") forState:UIControlStateNormal];
+    [logoutButton addTarget:self action:@selector(logoutAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.tableView.tableFooterView addSubview:logoutButton];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -227,6 +236,21 @@
     UIGraphicsEndImageContext();
     [urAPI setAvatar:editedImage];
     [activity startAnimating];
+}
+
+- (void)logoutAction
+{
+    [self showHudInView:self.view hint:NSLocalizedString(@"setting.logoutOngoing", @"loging out...")];
+    [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
+        [self hideHud];
+        if (error && error.errorCode != EMErrorServerNotLogin) {
+            [self showHint:error.description];
+        }
+        else{
+            [[ApplyViewController shareController] clear];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@NO];
+        }
+    } onQueue:nil];
 }
 
 /*
