@@ -16,12 +16,16 @@
 #import "ContactListSelectViewController.h"
 #import "API.h"
 #import "IBActionSheet.h"
+#import "WXApi.h"
+#import "AppDelegate.h"
 
-@interface ChatViewController ()<UIAlertViewDelegate, EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource, IBActionSheetDelegate>
+@interface ChatViewController ()<UIAlertViewDelegate, EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource, IBActionSheetDelegate, AlipayDelegate, WXApiDelegate, APIProtocol>
 {
     UIMenuItem *_copyMenuItem;
     UIMenuItem *_deleteMenuItem;
     UIMenuItem *_transpondMenuItem;
+    API *myAPI;
+    API *chiefAPI;
 }
 
 @property (nonatomic) BOOL isPlayingAudio;
@@ -61,6 +65,11 @@
     
     EaseEmotionManager *manager= [[EaseEmotionManager alloc] initWithType:EMEmotionDefault emotionRow:3 emotionCol:7 emotions:[EaseEmoji allEmoji]];
     [self.faceView setEmotionManagers:@[manager]];
+    
+    myAPI = [[API alloc]init];
+    myAPI.delegate = self;
+    chiefAPI = [[API alloc]init];
+    chiefAPI.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -77,6 +86,7 @@
             self.title = [self.conversation.ext objectForKey:@"groupSubject"];
         }
     }
+    ((AppDelegate *)[UIApplication sharedApplication].delegate).payVC = self;
 }
 
 #pragma mark - setup subviews
@@ -447,13 +457,58 @@
 }
 
 - (void)shareButtonClick {
-    IBActionSheet *sheet = [[IBActionSheet alloc]initWithTitle:NSLocalizedString(@"yohelper.settitle", "分享到朋友圈可免费设置首席语伴，每月一次") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") destructiveButtonTitle:NSLocalizedString(@"yohelper.wxfrd", @"朋友圈") otherButtonTitles:NSLocalizedString(@"yohelper.wxpay", @"微信支付"), NSLocalizedString(@"yohelper.alipay", @"支付宝支付"), nil];
-    [sheet setButtonTextColor:[UIColor lightGrayColor] forButtonAtIndex:0];
-    [sheet showInView:[UIApplication sharedApplication].keyWindow];
+    if ([API getChief].count == 0) {
+        [self.chatToolbar endEditing:YES];
+        IBActionSheet *sheet = [[IBActionSheet alloc]initWithTitle:NSLocalizedString(@"yohelper.settitle", "分享到朋友圈可免费设置首席语伴，每月一次") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"yohelper.wxfrd", @"朋友圈"), NSLocalizedString(@"yohelper.wxpay", @"微信支付"), NSLocalizedString(@"yohelper.alipay", @"支付宝支付"), nil];
+        if ([[API getInfo][@"requestValue"]integerValue] == 0) {
+            [sheet setButtonTextColor:[UIColor lightGrayColor] forButtonAtIndex:0];
+        }
+        [sheet showInView:[UIApplication sharedApplication].keyWindow];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"yohelper.alreadyChief", @"您已设置首席语伴，暂不能重新设置") message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 - (void)actionSheet:(IBActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSLog(@"%ld", (long)buttonIndex);
+    if ([[API getInfo][@"requestValue"]integerValue] > 0 && buttonIndex == 0) {
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = @"哥哥快she";
+        message.description = @"来自世界各国的语伴等哥哥来she";
+        WXWebpageObject *ext = [WXWebpageObject object];
+        ext.webpageUrl = @"www.yohelper.com";
+        message.mediaObject = ext;
+        [message setThumbImage:[UIImage imageNamed:@"1385977285"]];
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = WXSceneTimeline;
+        [WXApi sendReq:req];
+    }
+}
+
+- (void)AlipayRequestBack:(NSDictionary *)result {
+    
+}
+
+- (void)onResp:(BaseResp *)resp {
+    [myAPI addCollectionTeacher:[API getUidByKey:self.conversation.chatter]];
+}
+
+- (void)didReceiveAPIErrorOf:(API *)api data:(long)errorNo {
+    NSLog(@"%ld", errorNo);
+}
+
+- (void)didReceiveAPIResponseOf:(API *)api data:(NSDictionary *)data {
+    if (api == myAPI) {
+        [chiefAPI getMyCollectionTeachers];
+        if ([data[@"result"]integerValue] == 1) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"yohelper.success", @"设置成功") message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil];
+            [alert show];
+        }
+    } else {
+        [API setChief:data[@"result"]];
+    }
 }
 
 @end

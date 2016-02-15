@@ -11,13 +11,16 @@
 #import "ChatViewController.h"
 #import "IBActionSheet.h"
 #import "WebViewController.h"
+#import "WXApi.h"
+#import "AppDelegate.h"
 
-@interface CourseTableViewController () <APIProtocol, IBActionSheetDelegate> {
+@interface CourseTableViewController () <APIProtocol, IBActionSheetDelegate, AlipayDelegate, WXApiDelegate> {
     UIImageView *networkErr;
     API *chiefAPI;
     API *refreshCourses;
     NSArray *dataSource;
-    NSArray *chiefTeacher;
+    NSDictionary *mark;
+    API *operationAdd;
 }
 
 @end
@@ -34,7 +37,8 @@
     chiefAPI.delegate = self;
     refreshCourses = [[API alloc]init];
     refreshCourses.delegate = self;
-    [refreshCourses getTopicNews];
+    operationAdd = [[API alloc]init];
+    operationAdd.delegate = self;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -49,8 +53,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [chiefAPI getMyCollectionTeachers];
     [refreshCourses getTopicNews];
+    ((AppDelegate *)[UIApplication sharedApplication].delegate).payVC = self;
 }
 
 #pragma mark - Table view data source
@@ -195,15 +199,21 @@
     chatVC.isService = NO;
     NSString *avatar = [NSString stringWithFormat:@"%@%@", HOST, dataSource[button.tag][@"teacherAvatar"]];
     [API setAvatarByKey:dataSource[button.tag][@"teacherUsername"] name:avatar];
+    [API setUidByKey:dataSource[button.tag][@"teacherUsername"] uid:[NSString stringWithFormat:@"%@", dataSource[button.tag][@"teacherUID"]]];
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 
 - (void)shareButtonClick:(UIButton *)button {
-    if (chiefTeacher.count == 0) {
-        IBActionSheet *sheet = [[IBActionSheet alloc]initWithTitle:NSLocalizedString(@"yohelper.settitle", "分享到朋友圈可免费设置首席语伴，每月一次") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") destructiveButtonTitle:NSLocalizedString(@"yohelper.wxfrd", @"朋友圈") otherButtonTitles:NSLocalizedString(@"yohelper.wxpay", @"微信支付"), NSLocalizedString(@"yohelper.alipay", @"支付宝支付"), nil];
-        [sheet setButtonTextColor:[UIColor lightGrayColor] forButtonAtIndex:0];
+    if ([API getChief].count == 0) {
+        mark = dataSource[button.tag];
+        IBActionSheet *sheet = [[IBActionSheet alloc]initWithTitle:NSLocalizedString(@"yohelper.settitle", "分享到朋友圈可免费设置首席语伴，每月一次") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"yohelper.wxfrd", @"朋友圈"), NSLocalizedString(@"yohelper.wxpay", @"微信支付"), NSLocalizedString(@"yohelper.alipay", @"支付宝支付"), nil];
+        if ([[API getInfo][@"requestValue"]integerValue] == 0) {
+            [sheet setButtonTextColor:[UIColor lightGrayColor] forButtonAtIndex:0];
+        }
         [sheet showInView:[UIApplication sharedApplication].keyWindow];
-        sheet.tag = button.tag;
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"yohelper.alreadyChief", @"您已设置首席语伴，暂不能重新设置") message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil];
+        [alert show];
     }
 }
 
@@ -218,14 +228,32 @@
         networkErr.hidden = YES;
         dataSource = data[@"result"];
         [self.tableView reloadData];
-        NSLog(@"%@", dataSource);
+    } else if (api == operationAdd) {
+        [chiefAPI getMyCollectionTeachers];
+        if ([data[@"result"]integerValue] == 1) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"yohelper.success", @"设置成功") message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil];
+            [alert show];
+        }
     } else {
-        chiefTeacher = data[@"result"];
+        [API setChief:data[@"result"]];
     }
 }
 
 - (void)actionSheet:(IBActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSLog(@"%ld", (long)actionSheet.tag);
+    if ([[API getInfo][@"requestValue"]integerValue] > 0 && buttonIndex == 0) {
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = dataSource[actionSheet.tag][@"shareTitle"];
+        message.description = dataSource[actionSheet.tag][@"shareContent"];
+        WXWebpageObject *ext = [WXWebpageObject object];
+        ext.webpageUrl = dataSource[actionSheet.tag][@"share_url"];
+        message.mediaObject = ext;
+        [message setThumbImage:[UIImage imageNamed:@"1385977285"]];
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = WXSceneTimeline;
+        [WXApi sendReq:req];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -233,6 +261,16 @@
         WebViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WebViewController"];
         vc.url = dataSource[indexPath.section][@"url"];
         [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+- (void)AlipayRequestBack:(NSDictionary *)result {
+    
+}
+
+- (void)onResp:(BaseResp *)resp {
+    if (resp.errCode == 0) {
+        [operationAdd addCollectionTeacher:[NSString stringWithFormat:@"%@", mark[@"teacherUID"]]];
     }
 }
 

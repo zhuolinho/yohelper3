@@ -435,6 +435,11 @@
 "password should be same" = "两次密码输入不一致";
 "yohelper.isNotAscii" = "用户名只能包含字母和数字";
 "yohelper.wrongUser" = "该用户名无法使用";
-"yohelper.login" = "loging in";
+"yohelper.login" = "logging in";
 "yohelper.logout" = "退出登录";
 "yohelper.micSetting" = "如果你要关闭或开启外语帮手的麦克风，请在iPhone的“设置”功能中，找到应用程序“外语帮手”更改。";
+"yohelper.country" = "国籍：";
+"yohelper.lastTime" = "剩余%d天";
+"yohelper.lang" = "语言：";
+"yohelper.success" = "设置成功";
+"yohelper.alreadyChief" = "您已设置首席语伴，暂不能重新设置";

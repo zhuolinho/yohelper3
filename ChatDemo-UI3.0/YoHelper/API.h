@@ -36,6 +36,8 @@
 - (void)addLotteryValueWithInviteCode:(NSString *)inviteCode;
 - (void)addPhoneWithVerification:(NSString *)phone verifyCode:(NSString *)verifyCode;
 - (void)addLotteryRecord;
+- (void)addCollectionTeacher:(NSString *)uid;
+- (void)deleteCollectionTeacher:(NSString *)uid;
 
 + (UIImage *)getPicByKey:(NSString *)key;
 + (void)setPicByKey:(NSString *)key pic:(UIImage *)pic;
@@ -43,8 +45,12 @@
 + (void)setNameByKey:(NSString *)key name:(NSString *)name;
 + (NSString *)getAvatarByKey:(NSString *)key;
 + (void)setAvatarByKey:(NSString *)key name:(NSString *)name;
++ (NSString *)getUidByKey:(NSString *)key;
++ (void)setUidByKey:(NSString *)key uid:(NSString *)uid;
 + (NSDictionary *)getInfo;
 + (void)setInfo:(NSDictionary *)info;
++ (NSArray *)getChief;
++ (void)setChief:(NSArray *)Chief;
 
 + (NSString *)LanguageString:(NSUInteger)num;
 + (NSString *)CountryString:(NSUInteger)num;

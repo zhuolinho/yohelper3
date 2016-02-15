@@ -11,7 +11,9 @@
 static NSMutableDictionary *picDic;
 static NSMutableDictionary *nameDic;
 static NSMutableDictionary *avatarDic;
+static NSMutableDictionary *uidDic;
 static NSDictionary *myInfo;
+static NSArray *chiefTeacher;
 
 @implementation API
 
@@ -139,6 +141,17 @@ static NSDictionary *myInfo;
     [self post:@"addLotteryRecord.action" dic:@{@"token": yo_token}];
 }
 
+- (void)addCollectionTeacher:(NSString *)uid {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *yo_token = [ud objectForKey:@"yo_token"];
+    [self post:@"addCollectionTeacher.action" dic:@{@"token": yo_token, @"teacherUID": uid}];
+}
+
+- (void)deleteCollectionTeacher:(NSString *)uid {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *yo_token = [ud objectForKey:@"yo_token"];
+    [self post:@"deleteCollectionTeacher.action" dic:@{@"token": yo_token, @"teacherUID": uid}];}
+
 - (void)post:(NSString *)action dic:(NSDictionary *)dic {
     NSString *str = [NSString stringWithFormat:@"%@/yozaii2/api/%@", HOST, action];
     NSURL *url = [NSURL URLWithString:str];
@@ -234,12 +247,34 @@ static NSDictionary *myInfo;
     [avatarDic setValue:name forKey:key];
 }
 
++ (NSString *)getUidByKey:(NSString *)key {
+    if (uidDic != nil) {
+        return [uidDic objectForKey:key];
+    }
+    return nil;
+}
+
++ (void)setUidByKey:(NSString *)key uid:(NSString *)uid {
+    if (uidDic == nil) {
+        uidDic = [[NSMutableDictionary alloc]init];
+    }
+    [uidDic setValue:uid forKey:key];
+}
+
 + (void)setInfo:(NSDictionary *)info {
     myInfo = info;
 }
 
 + (NSDictionary *)getInfo {
     return myInfo;
+}
+
++ (void)setChief:(NSArray *)chief {
+    chiefTeacher = chief;
+}
+
++ (NSArray *)getChief {
+    return chiefTeacher;
 }
 
 + (NSString *)LanguageString:(NSUInteger)num {

@@ -435,6 +435,8 @@
                         [API setNameByKey:username name:[nickname componentsSeparatedByString:@","][0]];
                         NSString *avatar = [NSString stringWithFormat:@"%@%@", HOST, [res[@"avatar"] componentsSeparatedByString:@","][0]];
                         [API setAvatarByKey:username name:avatar];
+                        NSString *uid = res[@"uid"];
+                        [API setUidByKey:username uid:[uid componentsSeparatedByString:@","][0]];
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self tableViewDidTriggerHeaderRefresh];
                         });

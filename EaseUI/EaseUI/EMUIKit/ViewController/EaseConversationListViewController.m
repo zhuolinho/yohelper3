@@ -163,7 +163,7 @@
 
     [self tableViewDidFinishTriggerHeader:YES reload:YES];
     
-    if (conversations.count > 0) {
+    if (self.dataArray.count > 0) {
         hintLabel.hidden = YES;
     } else {
         hintLabel.hidden = NO;
