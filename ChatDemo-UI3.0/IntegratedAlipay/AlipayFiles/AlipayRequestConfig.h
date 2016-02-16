@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "AlipayHeader.h"
+#import "AppDelegate.h"
 
 @interface AlipayRequestConfig : NSObject
 
-
++ (void)setDelegate:(id<AlipayDelegate>)dele;
 /**
  *  配置请求信息，仅有变化且必要的参数
  *

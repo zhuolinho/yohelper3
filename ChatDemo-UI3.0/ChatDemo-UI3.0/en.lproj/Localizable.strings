@@ -438,8 +438,7 @@
 "yohelper.login" = "logging in";
 "yohelper.logout" = "退出登录";
 "yohelper.micSetting" = "如果你要关闭或开启外语帮手的麦克风，请在iPhone的“设置”功能中，找到应用程序“外语帮手”更改。";
-"yohelper.country" = "国籍：";
+"yohelper.country" = "国籍：%@";
 "yohelper.lastTime" = "剩余%d天";
-"yohelper.lang" = "语言：";
 "yohelper.success" = "设置成功";
 "yohelper.alreadyChief" = "您已设置首席语伴，暂不能重新设置";

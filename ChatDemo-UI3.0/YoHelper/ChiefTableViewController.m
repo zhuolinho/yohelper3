@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 #import "WXApi.h"
+#import "PayTableViewController.h"
 
 @interface ChiefTableViewController () <APIProtocol, IBActionSheetDelegate, UnreadCountDelegate, AlipayDelegate, WXApiDelegate, UIAlertViewDelegate> {
     UIScrollView *scrollView;
@@ -180,7 +181,7 @@
             conLabel.font = [UIFont systemFontOfSize:13];
             conLabel.textColor = [UIColor orangeColor];
             NSString *con = [API CountryString:[chiefTeacher[0][@"country"]unsignedIntegerValue]];
-            conLabel.text = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"yohelper.country", @"国籍："), NSLocalizedString(con, con)];
+            conLabel.text = [NSString stringWithFormat:NSLocalizedString(@"yohelper.country", @"国籍：%@"), NSLocalizedString(con, con)];
             [cell addSubview:conLabel];
             UIImageView *timeimg = [[UIImageView alloc]initWithFrame:CGRectMake(80, 69, 12, 12)];
             timeimg.image = [UIImage imageNamed:@"倒计时"];
@@ -197,7 +198,7 @@
             UILabel *langLabel = [[UILabel alloc]initWithFrame:CGRectMake(80, 40, 160 * x - 15, 30)];
             langLabel.font = [UIFont systemFontOfSize:13];
             langLabel.textColor = [UIColor orangeColor];
-            langLabel.text = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"yohelper.lang", @"语言："), NSLocalizedString(lang, lang)];
+            langLabel.text = [NSString stringWithFormat:NSLocalizedString(@"yohelper.lang", @"语言：%@"), NSLocalizedString(lang, lang)];
             [cell addSubview:langLabel];
             UIButton *helpButton = [[UIButton alloc]initWithFrame:CGRectMake(160 * x, 13, 50, 19)];
             [helpButton setBackgroundImage:[UIImage imageNamed:@"首席求助"] forState:UIControlStateNormal];
@@ -371,6 +372,10 @@
             [sheet setButtonTextColor:[UIColor lightGrayColor] forButtonAtIndex:0];
         }
         [sheet showInView:[UIApplication sharedApplication].keyWindow];
+        NSString *avatar = res[button.tag][@"avatar"];
+        [API setAvatarByKey:res[button.tag][@"username"] name:avatar];
+        [API setUidByKey:res[button.tag][@"username"] uid:[NSString stringWithFormat:@"%@", res[button.tag][@"uid"]]];
+        [API setNameByKey:res[button.tag][@"username"] name:res[button.tag][@"nickname"]];
     } else {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"yohelper.alreadyChief", @"您已设置首席语伴，暂不能重新设置") message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil];
         [alert show];
@@ -382,9 +387,10 @@
     chatVC.title = res[button.tag][@"nickname"];
     chatVC.hidesBottomBarWhenPushed = YES;
     chatVC.isService = NO;
-    NSString *avatar = [NSString stringWithFormat:@"%@%@", HOST, res[button.tag][@"avatar"]];
+    NSString *avatar = res[button.tag][@"avatar"];
     [API setAvatarByKey:res[button.tag][@"username"] name:avatar];
     [API setUidByKey:res[button.tag][@"username"] uid:[NSString stringWithFormat:@"%@", res[button.tag][@"uid"]]];
+    [API setNameByKey:res[button.tag][@"username"] name:res[button.tag][@"nickname"]];
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 
@@ -393,9 +399,10 @@
     chatVC.title = chiefTeacher[0][@"nickname"];
     chatVC.hidesBottomBarWhenPushed = YES;
     chatVC.isService = NO;
-    NSString *avatar = [NSString stringWithFormat:@"%@%@", HOST, chiefTeacher[0][@"avatar"]];
+    NSString *avatar = chiefTeacher[0][@"avatar"];
     [API setAvatarByKey:chiefTeacher[0][@"username"] name:avatar];
     [API setUidByKey:chiefTeacher[0][@"username"] uid:[NSString stringWithFormat:@"%@", chiefTeacher[0][@"uid"]]];
+    [API setNameByKey:chiefTeacher[0][@"username"] name:chiefTeacher[0][@"nickname"]];
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 
@@ -471,6 +478,16 @@
         req.message = message;
         req.scene = WXSceneTimeline;
         [WXApi sendReq:req];
+    } else if (buttonIndex == 1) {
+        PayTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"PayTableViewController"];
+        vc.username = mark[@"username"];
+        vc.isWX = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if (buttonIndex == 2) {
+        PayTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"PayTableViewController"];
+        vc.username = mark[@"username"];
+        vc.isWX = NO;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

@@ -18,6 +18,7 @@
 #import "IBActionSheet.h"
 #import "WXApi.h"
 #import "AppDelegate.h"
+#import "PayTableViewController.h"
 
 @interface ChatViewController ()<UIAlertViewDelegate, EaseMessageViewControllerDelegate, EaseMessageViewControllerDataSource, IBActionSheetDelegate, AlipayDelegate, WXApiDelegate, APIProtocol>
 {
@@ -263,7 +264,7 @@
     }
     model.failImageName = @"imageDownloadFail";
     if ([API getAvatarByKey:model.nickname]) {
-        model.avatarURLPath = [API getAvatarByKey:model.nickname];
+        model.avatarURLPath = [NSString stringWithFormat:@"%@%@", HOST, [API getAvatarByKey:model.nickname]];
     }
     return model;
 }
@@ -484,6 +485,16 @@
         req.message = message;
         req.scene = WXSceneTimeline;
         [WXApi sendReq:req];
+    } else if (buttonIndex == 1) {
+        PayTableViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"PayTableViewController"];
+        vc.username = self.conversation.chatter;
+        vc.isWX = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if (buttonIndex == 2) {
+        PayTableViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"PayTableViewController"];
+        vc.username = self.conversation.chatter;
+        vc.isWX = NO;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

@@ -226,7 +226,7 @@
             model.title = [API getNameByKey:conversation.chatter];
         }
         if ([API getAvatarByKey:conversation.chatter]) {
-            model.avatarURLPath = [API getAvatarByKey:conversation.chatter];
+            model.avatarURLPath = [NSString stringWithFormat:@"%@%@", HOST, [API getAvatarByKey:conversation.chatter]];
         } else {
             [self post:@"getAvatarAndNicknameFromUid.action" username:conversation.chatter];
         }
@@ -433,7 +433,7 @@
                         NSDictionary *res = deserializedDictionary[@"result"];
                         NSString *nickname = res[@"nickname"];
                         [API setNameByKey:username name:[nickname componentsSeparatedByString:@","][0]];
-                        NSString *avatar = [NSString stringWithFormat:@"%@%@", HOST, [res[@"avatar"] componentsSeparatedByString:@","][0]];
+                        NSString *avatar = [res[@"avatar"] componentsSeparatedByString:@","][0];
                         [API setAvatarByKey:username name:avatar];
                         NSString *uid = res[@"uid"];
                         [API setUidByKey:username uid:[uid componentsSeparatedByString:@","][0]];

@@ -44,30 +44,30 @@
  *  partner:合作身份者ID,以 2088 开头由 16 位纯数字组成的字符串。
  *
  */
-#define kPartnerID @""
+#define kPartnerID @"2088411666876524"
 
 
 /**
  *  seller:支付宝收款账号,手机号码或邮箱格式。
  */
-#define kSellerAccount @""
+#define kSellerAccount @"gmyaojia@163.com"
 
 /**
  *  支付宝服务器主动通知商户 网站里指定的页面 http 路径。
  */
-#define kNotifyURL @""
+#define kNotifyURL @"http://115.29.166.167:8080/yozaii2/call_back_url.jsp"
 
 
 /**
  *  appSckeme:应用注册scheme,在Info.plist定义URLtypes，处理支付宝回调
  */
-#define kAppScheme @"integratedAlipay"
+#define kAppScheme @"integratedAlipayYohelper"
 
 
 /**
  *  private_key:商户方的私钥,pkcs8 格式。
  */
-#define kPrivateKey @""
+#define kPrivateKey @"MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAJsLfPjtYzexzSXpy2jOZE0L8ghzrOQclVIIbLDmUinbFGde2dn6tpbpRJSOEu7MKIjtgUsdQMhwkyxJGRM9YStsZ6sByXmEif1LUzq+8Wzp3x8tg1saEG6rMsQUZFqlDKiH6kydXthdikqqE/sd0AJrDluM4IP5OxsMNIOdSOcfAgMBAAECgYEAhHuMjihKX4zOf1cHOMcjbbKHXjF5ynGiJjaMqZwlGR7akHm8LUbOPqWUtFuyUdqhyF8p28VjVeLb3zuW8ZnBLMUtQVtrmo678oC6wn1lpGih1PiQc4Tw5ZKkRZpLLv2G+uvy742mri8ohDOvE8PhKlaI84XCYA2PnysWgVRYxAECQQDKyK3+2LE2NLeNj+Np7g9aYNC690TMWdeVeR7eybPsZiKMCWhZJvc6P/4Ozpp79iDEApWIhRHiN/0T12cYnhrnAkEAw7uhZZ/JNad6tj3p8jutXgUxXLnRvnq2FM1t64G9gIXKNnnH4mXVCucs4UD0cL/sg/7auOuCsZCEZPR12WTDCQJAD1dLQoJmNbGbSUxfaf4mjzHP2LUoMUWCt74oBbbAs9uuNWXozQXTokaBE+GxcjtWkz2WznMyvSh7LusW05fydQJBAJbuUH50wEtHYjC1fXj027LsfivqffpL1awk3OYFnYNFp7BqJ+BEdgt6R/lKhTOMS21dUHvX32fc8LqIZ3fDY0ECQDTwlwysm0G8mO2Vq6AxklsszrSY+O3i5A4BtYp0+BPFnOAppXwalbBrWl/0ZKuPWNKBcfvVnc9DUU1i4z6zqhI="
 
 
 #endif

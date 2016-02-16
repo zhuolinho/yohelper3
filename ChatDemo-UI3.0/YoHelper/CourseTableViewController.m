@@ -13,6 +13,7 @@
 #import "WebViewController.h"
 #import "WXApi.h"
 #import "AppDelegate.h"
+#import "PayTableViewController.h"
 
 @interface CourseTableViewController () <APIProtocol, IBActionSheetDelegate, AlipayDelegate, WXApiDelegate> {
     UIImageView *networkErr;
@@ -134,7 +135,7 @@
         avatarView.layer.masksToBounds = YES;
         [blankView addSubview:avatarView];
         UILabel *conLabel = [[UILabel alloc]initWithFrame:CGRectMake(56, 30, 100, 20)];
-        NSString *con = [API CountryString:[dataSource[indexPath.section][@"lang"]unsignedIntegerValue]];
+        NSString *con = [API LanguageString:[dataSource[indexPath.section][@"lang"]unsignedIntegerValue]];
         conLabel.text = [NSString stringWithFormat:NSLocalizedString(@"yohelper.lang", @"语言：%@"), NSLocalizedString(con, con)];
         conLabel.font = [UIFont systemFontOfSize:15];
         conLabel.textColor = [UIColor lightGrayColor];
@@ -197,9 +198,10 @@
     chatVC.title = dataSource[button.tag][@"teacherNickname"];
     chatVC.hidesBottomBarWhenPushed = YES;
     chatVC.isService = NO;
-    NSString *avatar = [NSString stringWithFormat:@"%@%@", HOST, dataSource[button.tag][@"teacherAvatar"]];
+    NSString *avatar = dataSource[button.tag][@"teacherAvatar"];
     [API setAvatarByKey:dataSource[button.tag][@"teacherUsername"] name:avatar];
     [API setUidByKey:dataSource[button.tag][@"teacherUsername"] uid:[NSString stringWithFormat:@"%@", dataSource[button.tag][@"teacherUID"]]];
+    [API setNameByKey:dataSource[button.tag][@"teacherUsername"] name:dataSource[button.tag][@"teacherNickname"]];
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 
@@ -211,6 +213,10 @@
             [sheet setButtonTextColor:[UIColor lightGrayColor] forButtonAtIndex:0];
         }
         [sheet showInView:[UIApplication sharedApplication].keyWindow];
+        NSString *avatar = dataSource[button.tag][@"teacherAvatar"];
+        [API setAvatarByKey:dataSource[button.tag][@"teacherUsername"] name:avatar];
+        [API setUidByKey:dataSource[button.tag][@"teacherUsername"] uid:[NSString stringWithFormat:@"%@", dataSource[button.tag][@"teacherUID"]]];
+        [API setNameByKey:dataSource[button.tag][@"teacherUsername"] name:dataSource[button.tag][@"teacherNickname"]];
     } else {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"yohelper.alreadyChief", @"您已设置首席语伴，暂不能重新设置") message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil];
         [alert show];
@@ -253,6 +259,16 @@
         req.message = message;
         req.scene = WXSceneTimeline;
         [WXApi sendReq:req];
+    } else if (buttonIndex == 1) {
+        PayTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"PayTableViewController"];
+        vc.username = mark[@"teacherUsername"];
+        vc.isWX = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if (buttonIndex == 2) {
+        PayTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"PayTableViewController"];
+        vc.username = mark[@"teacherUsername"];
+        vc.isWX = NO;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

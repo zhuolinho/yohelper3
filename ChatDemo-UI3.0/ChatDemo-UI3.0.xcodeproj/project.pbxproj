@@ -27,6 +27,11 @@
 		062DDAD01C2FBF0E00908998 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 062DDAC21C2FBF0E00908998 /* libcrypto.a */; };
 		062DDAD11C2FBF0E00908998 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 062DDAC31C2FBF0E00908998 /* libssl.a */; };
 		062DDAD31C2FCF1E00908998 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 062DDAD21C2FCF1E00908998 /* CoreMotion.framework */; };
+		0639959E1C72F68300CD284C /* PayTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0639959D1C72F68300CD284C /* PayTableViewController.m */; };
+		063995A11C73168A00CD284C /* VoucherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 063995A01C73168A00CD284C /* VoucherTableViewController.m */; };
+		063995A41C736A3000CD284C /* payRequsestHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 063995A31C736A3000CD284C /* payRequsestHandler.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		063995A91C736A6200CD284C /* ApiXml.mm in Sources */ = {isa = PBXBuildFile; fileRef = 063995A61C736A6200CD284C /* ApiXml.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		063995AA1C736A6200CD284C /* WXUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 063995A81C736A6200CD284C /* WXUtil.mm */; };
 		064F140B1C3949E500CB8E61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 064F140D1C3949E500CB8E61 /* Main.storyboard */; };
 		065F14A61C3A271300724FDC /* ChiefTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 065F14A51C3A271300724FDC /* ChiefTableViewController.m */; };
 		065F14A91C3A3A5500724FDC /* CourseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 065F14A81C3A3A5500724FDC /* CourseTableViewController.m */; };
@@ -452,6 +457,16 @@
 		062DDAC21C2FBF0E00908998 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		062DDAC31C2FBF0E00908998 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		062DDAD21C2FCF1E00908998 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		0639959C1C72F68300CD284C /* PayTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayTableViewController.h; sourceTree = "<group>"; };
+		0639959D1C72F68300CD284C /* PayTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayTableViewController.m; sourceTree = "<group>"; };
+		0639959F1C73168A00CD284C /* VoucherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoucherTableViewController.h; sourceTree = "<group>"; };
+		063995A01C73168A00CD284C /* VoucherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoucherTableViewController.m; sourceTree = "<group>"; };
+		063995A21C736A3000CD284C /* payRequsestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = payRequsestHandler.h; sourceTree = "<group>"; };
+		063995A31C736A3000CD284C /* payRequsestHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = payRequsestHandler.mm; sourceTree = "<group>"; };
+		063995A51C736A6200CD284C /* ApiXml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiXml.h; sourceTree = "<group>"; };
+		063995A61C736A6200CD284C /* ApiXml.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ApiXml.mm; sourceTree = "<group>"; };
+		063995A71C736A6200CD284C /* WXUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXUtil.h; sourceTree = "<group>"; };
+		063995A81C736A6200CD284C /* WXUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WXUtil.mm; sourceTree = "<group>"; };
 		064F140E1C394A1C00CB8E61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		065F14A41C3A271300724FDC /* ChiefTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChiefTableViewController.h; sourceTree = "<group>"; };
 		065F14A51C3A271300724FDC /* ChiefTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChiefTableViewController.m; sourceTree = "<group>"; };
@@ -1148,6 +1163,12 @@
 		062DDA521C2FB4F400908998 /* SDKExport */ = {
 			isa = PBXGroup;
 			children = (
+				063995A51C736A6200CD284C /* ApiXml.h */,
+				063995A61C736A6200CD284C /* ApiXml.mm */,
+				063995A71C736A6200CD284C /* WXUtil.h */,
+				063995A81C736A6200CD284C /* WXUtil.mm */,
+				063995A21C736A3000CD284C /* payRequsestHandler.h */,
+				063995A31C736A3000CD284C /* payRequsestHandler.mm */,
 				062DDA531C2FB4F400908998 /* libWeChatSDK.a */,
 				062DDA541C2FB4F400908998 /* read_me.txt */,
 				062DDA551C2FB4F400908998 /* WechatAuthSDK.h */,
@@ -1303,6 +1324,10 @@
 				0684653B1C31AFE200062B0E /* API.h */,
 				0684653C1C31AFE200062B0E /* API.m */,
 				064F140D1C3949E500CB8E61 /* Main.storyboard */,
+				0639959F1C73168A00CD284C /* VoucherTableViewController.h */,
+				063995A01C73168A00CD284C /* VoucherTableViewController.m */,
+				0639959C1C72F68300CD284C /* PayTableViewController.h */,
+				0639959D1C72F68300CD284C /* PayTableViewController.m */,
 				062BD0A31C6D8E5000E12568 /* BuyGiftViewController.h */,
 				062BD0A41C6D8E5000E12568 /* BuyGiftViewController.m */,
 				06074BE31C6CE1FE00C5D149 /* DiscoverTableViewController.h */,
@@ -2921,6 +2946,7 @@
 				D2B61E331BC7BEA6007CB53E /* ConversationListController.m in Sources */,
 				065F14A61C3A271300724FDC /* ChiefTableViewController.m in Sources */,
 				0695EB281C6A2B6E00AE29AF /* MyCollectionsViewController.m in Sources */,
+				063995A11C73168A00CD284C /* VoucherTableViewController.m in Sources */,
 				06BA054A1C55189A00D6E288 /* WebViewController.m in Sources */,
 				062DDACA1C2FBF0E00908998 /* NSDataEx.m in Sources */,
 				3C6BBA0619419EBD00A64684 /* EMRemarkImageView.m in Sources */,
@@ -2936,8 +2962,10 @@
 				06B947D41C6B73BC00C608F2 /* RegisterVerifyPhoneViewController.m in Sources */,
 				906083D91B71F894008574B4 /* EMRobotChatTextBubbleView.m in Sources */,
 				062DDAC41C2FBF0E00908998 /* AlipayRequestConfig.m in Sources */,
+				063995A91C736A6200CD284C /* ApiXml.mm in Sources */,
 				3CBF90C019302F5000AD68AE /* BaseViewController.m in Sources */,
 				3C3EB2FC19545FFD00E1AE9E /* PublicGroupListViewController.m in Sources */,
+				063995A41C736A3000CD284C /* payRequsestHandler.mm in Sources */,
 				D2B61D621BC7A396007CB53E /* EMBubbleView+Gif.m in Sources */,
 				065F14A91C3A3A5500724FDC /* CourseTableViewController.m in Sources */,
 				3C9DDAB4193871D8007C765A /* EMSearchDisplayController.m in Sources */,
@@ -2948,6 +2976,7 @@
 				3C914D8519514BBD0002DAD3 /* ContactSelectionViewController.m in Sources */,
 				283403091A9EBB8200B7DE9B /* GroupSubjectChangingViewController.m in Sources */,
 				D29A6BA91B7208DF002324BB /* UIImageView+HeadImage.m in Sources */,
+				063995AA1C736A6200CD284C /* WXUtil.mm in Sources */,
 				9003D9151939D8D000DC38A4 /* ApplyFriendCell.m in Sources */,
 				062DDAC71C2FBF0E00908998 /* DataSigner.m in Sources */,
 				3C6BBA091941A58C00A64684 /* XHMessageTextView.m in Sources */,
@@ -2969,6 +2998,7 @@
 				06D0AC521C6061610028B2F5 /* MyProfileTableViewController.m in Sources */,
 				D2B61E2E1BC7A9B3007CB53E /* EMGifImage.m in Sources */,
 				062BD0A51C6D8E5000E12568 /* BuyGiftViewController.m in Sources */,
+				0639959E1C72F68300CD284C /* PayTableViewController.m in Sources */,
 				90517D6A1A5C3DB0008F1315 /* AppDelegate+UMeng.m in Sources */,
 				3C2923B11988E13300DCCD40 /* BlackListViewController.m in Sources */,
 				06D0AC4F1C60603E0028B2F5 /* MeTableViewController.m in Sources */,

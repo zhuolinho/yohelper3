@@ -104,7 +104,7 @@
 - (void)didReceiveAPIResponseOf:(API *)api data:(NSDictionary *)data {
     if (api == getInfo) {
         [API setInfo:data[@"result"]];
-        NSString *avatar = [NSString stringWithFormat:@"%@%@", HOST, [API getInfo][@"avatar"]];
+        NSString *avatar = [API getInfo][@"avatar"];
         [API setAvatarByKey:[API getInfo][@"username"] name:avatar];
         [self.tableView reloadData];
     } else if (api == refreshRecent) {
